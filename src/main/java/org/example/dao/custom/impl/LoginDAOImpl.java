@@ -13,6 +13,7 @@ import java.util.List;
 public class LoginDAOImpl implements LoginDAO {
 
     private String role;
+    private boolean wrongPsw = false;
 
     @Override
     public boolean authenticate(String username, String password) {
@@ -33,6 +34,7 @@ public class LoginDAOImpl implements LoginDAO {
                     role = list.get(0).getRole();
                     return true;
                 } else {
+                    wrongPsw = true;
                     System.out.println("Login failed password incorrect");
                     return false;
                 }
@@ -51,5 +53,10 @@ public class LoginDAOImpl implements LoginDAO {
     @Override
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public boolean isWrongPsw() {
+        return wrongPsw;
     }
 }

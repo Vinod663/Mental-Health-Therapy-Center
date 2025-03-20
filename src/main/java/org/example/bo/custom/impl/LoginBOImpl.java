@@ -21,4 +21,9 @@ public class LoginBOImpl implements LoginBO {
     public String getRole() {
         return loginDAO.getRole();
     }
+
+    @Override
+    public boolean isWrongPsw() {
+        return loginDAO.isWrongPsw();
+    }
 }

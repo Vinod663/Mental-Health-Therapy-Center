@@ -5,4 +5,6 @@ import org.example.bo.SuperBO;
 public interface LoginBO extends SuperBO {
     boolean authenticate(String username, String password);
     String getRole();
+
+    boolean isWrongPsw();
 }

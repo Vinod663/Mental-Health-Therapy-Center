@@ -100,6 +100,14 @@ public class LoginController {
                 timeline.play();
             });
         } else {
+            boolean wrongPsw = loginBO.isWrongPsw();
+            if(wrongPsw) {
+                UsernameTextId.setStyle("-fx-text-box-border: green; -fx-text-inner-color: green;");
+                PswField.setStyle("-fx-text-box-border: red; -fx-text-inner-color: red;");
+            } else {
+                UsernameTextId.setStyle("-fx-text-box-border: red; -fx-text-inner-color: red;");
+                PswField.setStyle("-fx-text-box-border: red; -fx-text-inner-color: red;");
+            }
             System.out.println("Try again");
         }
     }
