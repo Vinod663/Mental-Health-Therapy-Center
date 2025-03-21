@@ -18,7 +18,7 @@ import org.example.bo.BOFactory;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.LoginBO;
 import org.example.config.FactoryConfiguration;
-import org.example.entity.Users;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

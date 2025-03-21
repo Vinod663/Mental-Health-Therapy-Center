@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
 
-    private String role;
+    private static String role;
     private boolean wrongPsw = false;
 
     @Override

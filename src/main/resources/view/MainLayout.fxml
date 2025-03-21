@@ -50,7 +50,7 @@
             </Label>
             <VBox maxHeight="300.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Therapist" textFill="WHITE">
+                  <Button fx:id="therapistBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#therapistBtnAction" style="-fx-background-color: #333333;" text="Therapist" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -58,7 +58,7 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Programs" textFill="WHITE">
+                  <Button fx:id="programsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#programsBtnAction" style="-fx-background-color: #333333;" text="Programs" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Patients" textFill="WHITE">
+                  <Button fx:id="patientsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#patientsBtnAction" style="-fx-background-color: #333333;" text="Patients" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -74,7 +74,7 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Appointments" textFill="WHITE">
+                  <Button fx:id="appoinmentsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#appoinmentsBtnAction" style="-fx-background-color: #333333;" text="Appointments" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -82,7 +82,7 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Payments" textFill="WHITE">
+                  <Button fx:id="paymentBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#paymentBtnAction" style="-fx-background-color: #333333;" text="Payments" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -90,12 +90,12 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Reports" textFill="WHITE">
+                  <Button fx:id="reportBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reoprtBtnAction" style="-fx-background-color: #333333;" text="Reports" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #333333;" text="Settings" textFill="WHITE">
+                  <Button fx:id="settingsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#settingsBtnAction" style="-fx-background-color: #333333;" text="Settings" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
