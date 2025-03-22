@@ -5,6 +5,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.config.FactoryConfiguration;
 import org.example.entity.Users;
@@ -55,6 +56,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Serenity Therapy Center");
+        Image image = new Image(getClass().getResourceAsStream("/assets/icons/icons8-alzheimer-96.png"));
+        stage.getIcons().add(image);
         stage.setScene(scene);
         stage.show();
     }

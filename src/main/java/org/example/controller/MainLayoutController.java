@@ -2,6 +2,7 @@ package org.example.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -9,6 +10,7 @@ import org.example.bo.BOFactory;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.LoginBO;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,13 +49,28 @@ public class MainLayoutController implements Initializable {
     private Button therapistBtn;
 
     @FXML
+    private AnchorPane DashBoardAnc;
+
+    @FXML
     void AccountBtnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void LogoutBtnAction(ActionEvent event) {
+    void LogoutBtnAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
+        AnchorPane newPane = loader.load();
+        newPane.prefWidthProperty().bind(DashBoardAnc.widthProperty());
+        newPane.prefHeightProperty().bind(DashBoardAnc.heightProperty());
 
+        // Set anchors to make the newPane fill the mainAnchorPane
+        AnchorPane.setTopAnchor(newPane, 0.0);
+        AnchorPane.setRightAnchor(newPane, 0.0);
+        AnchorPane.setBottomAnchor(newPane, 0.0);
+        AnchorPane.setLeftAnchor(newPane, 0.0);
+
+        // Clear the current pane (if needed) and add the new one
+        DashBoardAnc.getChildren().setAll(newPane);
     }
 
     @FXML
@@ -94,14 +111,10 @@ public class MainLayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String role = loginBO.getRole();
         AccountBtn.setText(role);
-        if (role.equals("admin")) {
-            patientsBtn.setDisable(true);
-            appoinmentsBtn.setDisable(true);
-            paymentBtn.setDisable(true);
-
-        } else {
+        if (!role.equals("admin")) {
             therapistBtn.setDisable(true);
             programsBtn.setDisable(true);
+
         }
 
     }
