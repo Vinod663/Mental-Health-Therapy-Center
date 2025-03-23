@@ -15,6 +15,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
+
 public class Main extends Application {
     private static FactoryConfiguration factory;
     public static void main(String[] args) {
@@ -46,6 +47,25 @@ public class Main extends Application {
 
 
         launch(args);
+
+        /*Session session=FactoryConfiguration.getInstance().getSession(); //1st level cache ex-1
+
+        Users vinod = session.get(Users.class,1 );
+        System.out.println(vinod);
+
+        Users vinod1 = session.get(Users.class, 1);
+        System.out.println(vinod1);
+
+        session.close();*/
+
+        /*Session session=FactoryConfiguration.getInstance().getSession(); //2nd level cache
+        Users vinod = session.get(Users.class,1 );
+        System.out.println(vinod);
+        session.close();
+        Session session1=FactoryConfiguration.getInstance().getSession();
+        Users vinod1 = session1.get(Users.class, 1);
+        System.out.println(vinod1);*/
+
 
 
 

@@ -3,6 +3,8 @@ package org.example.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data//getter,setter,tostring
@@ -20,5 +22,9 @@ public class Users implements SuperEntity {
     private String password;
     private String role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Patients> patients;
 
+    @OneToMany(mappedBy = "user")
+    private List<TherapyProgram> therapyPrograms;
 }
