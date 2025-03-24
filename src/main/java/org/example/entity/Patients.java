@@ -35,4 +35,7 @@ public class Patients implements SuperEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
+
+    @OneToMany(mappedBy = "patient")
+    private List<TherapySession> therapySessions;
 }

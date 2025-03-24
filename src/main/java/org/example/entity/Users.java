@@ -25,6 +25,6 @@ public class Users implements SuperEntity {
     @OneToMany(mappedBy = "user")
     private List<Patients> patients;
 
-    @OneToMany(mappedBy = "user")
-    private List<TherapyProgram> therapyPrograms;
+    /*@OneToMany(mappedBy = "user")
+    private List<TherapyProgram> therapyPrograms;*/
 }

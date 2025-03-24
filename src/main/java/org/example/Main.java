@@ -24,7 +24,7 @@ public class Main extends Application {
 
         Users user = new Users();
 
-        user.setRole("receptionist");
+        user.setRole("Receptionist");
         user.setUsername("vinod");
 
 

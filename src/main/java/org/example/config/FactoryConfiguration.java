@@ -30,6 +30,9 @@ public class FactoryConfiguration {
         configuration.addAnnotatedClass(TherapyProgram.class);
         configuration.addAnnotatedClass(Registration.class);
         configuration.addAnnotatedClass(Payment.class);
+        configuration.addAnnotatedClass(Therapist.class);
+        configuration.addAnnotatedClass(TherapySession.class);
+        configuration.addAnnotatedClass(TherapyDetail.class);
         sessionFactory = configuration.buildSessionFactory();//build session factory
 
     }

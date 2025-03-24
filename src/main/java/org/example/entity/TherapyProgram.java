@@ -32,15 +32,18 @@ public class TherapyProgram implements SuperEntity {
     @Lob
     private String programDescription;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private Users user;*/
 
     @OneToMany(mappedBy = "program")
     private List<Registration> registrations;
 
     @OneToMany(mappedBy = "program")
     private List<Payment> payments;
+
+    @OneToMany(mappedBy = "program")
+    private List<TherapyDetail> therapyDetails;
 
 
 }
