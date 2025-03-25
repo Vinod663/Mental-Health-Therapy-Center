@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class RegistrationId {
     @Column(name = "program_id")
-    private int programId;
+    private String programId;
 
     @Column(name="patient_id")
     private int patientId;

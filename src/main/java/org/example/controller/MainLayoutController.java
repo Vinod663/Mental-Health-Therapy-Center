@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import org.example.bo.BOFactory;
@@ -53,7 +54,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void AccountBtnAction(ActionEvent event) {
-
+        navigateTo("/view/userProfile.fxml");
     }
 
     @FXML
@@ -75,7 +76,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void appoinmentsBtnAction(ActionEvent event) {
-
+        navigateTo("/view/TherapySession.fxml");
     }
 
     @FXML
@@ -117,5 +118,20 @@ public class MainLayoutController implements Initializable {
 
         }
 
+    }
+
+    public void navigateTo(String fxmlPath){
+        try{
+            ContentAnchor.getChildren().clear();
+            AnchorPane load= FXMLLoader.load(getClass().getResource(fxmlPath));
+
+            load.prefWidthProperty().bind(ContentAnchor.widthProperty());
+            load.prefHeightProperty().bind(ContentAnchor.heightProperty());
+
+            ContentAnchor.getChildren().add(load);
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Fail to load page!").show();
+        }
     }
 }

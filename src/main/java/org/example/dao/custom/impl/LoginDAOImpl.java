@@ -13,6 +13,7 @@ import java.util.List;
 public class LoginDAOImpl implements LoginDAO {
 
     private static String role;
+    private static int userId;
     private boolean wrongPsw = false;
 
     @Override
@@ -32,6 +33,7 @@ public class LoginDAOImpl implements LoginDAO {
                 if(!list.isEmpty() && BCrypt.verifyer().verify(password.toCharArray(), list.get(0).getPassword()).verified) {
                     System.out.println("Login successful!");
                     role = list.get(0).getRole();
+                    userId = list.get(0).getId();
                     return true;
                 } else {
                     wrongPsw = true;
@@ -58,5 +60,26 @@ public class LoginDAOImpl implements LoginDAO {
     @Override
     public boolean isWrongPsw() {
         return wrongPsw;
+    }
+
+    @Override
+    public Users getUser() {
+        try {
+            Session session = FactoryConfiguration.getInstance().getSession();
+
+            Query<Users> query = session.createQuery("from Users u where u.id=:id", Users.class);
+            query.setParameter("id", userId);
+            List<Users> list = query.list();
+
+            if (!list.isEmpty()) {
+                return list.get(0);
+            }
+
+            session.close();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 }

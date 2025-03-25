@@ -1,19 +1,11 @@
 package org.example;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.config.FactoryConfiguration;
-import org.example.entity.Users;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import java.util.List;
 
 
 public class Main extends Application {
@@ -22,16 +14,29 @@ public class Main extends Application {
         /*factory = FactoryConfiguration.getInstance();
         Session session = factory.getSession();
 
+        Users user1 = new Users();
+
+        user1.setRole("Admin");
+        user1.setUsername("admin");
+        user1.setFullname("Praneeth Fernando");
+        user1.setEmail("admin@gmail.com");
+
+
+        user1.setPassword(BCrypt.withDefaults().hashToString(12, "685845".toCharArray()));
+
         Users user = new Users();
 
         user.setRole("Receptionist");
         user.setUsername("vinod");
+        user.setFullname("Vinod Fernando");
+        user.setEmail("vinodfernando048@gmail.com");
 
 
         user.setPassword(BCrypt.withDefaults().hashToString(12, "685845".toCharArray()));
 
         try {
             Transaction transaction = session.beginTransaction();
+            session.persist(user1);
             session.persist(user);
             transaction.commit();
         } catch (Exception e) {

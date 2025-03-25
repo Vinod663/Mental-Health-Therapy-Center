@@ -26,6 +26,7 @@ public class TherapySession implements SuperEntity {
 
     private String date;
     private String time;
+    private String status;
 
     @Column(name = "session_note")
     @Lob

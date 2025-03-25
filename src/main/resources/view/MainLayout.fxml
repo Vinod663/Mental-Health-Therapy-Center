@@ -66,6 +66,14 @@
             </Label>
             <VBox maxHeight="300.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
+                  <Button fx:id="appoinmentsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#appoinmentsBtnAction" style="-fx-background-color: #333333;" text="Therapy-Sessions" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </Button>
                   <Button fx:id="therapistBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#therapistBtnAction" style="-fx-background-color: #333333;" text="Therapist" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -83,14 +91,6 @@
                      </padding>
                   </Button>
                   <Button fx:id="patientsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#patientsBtnAction" style="-fx-background-color: #333333;" text="Patients" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="20.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="appoinmentsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#appoinmentsBtnAction" style="-fx-background-color: #333333;" text="Therapy-Sessions" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

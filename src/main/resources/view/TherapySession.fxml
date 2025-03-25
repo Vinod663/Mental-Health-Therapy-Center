@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="466.0" prefWidth="632.0" style="-fx-background-color: #9FB1C9;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.SessionController">
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="194.0" prefWidth="760.0" spacing="10.0" style="-fx-background-radius: 5;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="760.0">
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Patient Id" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="patientCombo" focusTraversable="false" onAction="#patientComboAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 5;" />
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="130.0" text="Patient Name" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="patientNameLabel" prefHeight="18.0" prefWidth="165.0" style="-fx-border-color: #000000; -fx-border-width: 0 0 1px 0;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="760.0">
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Therapist Id" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="therapistCombo" focusTraversable="false" onAction="#therapistComboAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 5;" />
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Therapist Name" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="therapistNameLabel" prefHeight="18.0" prefWidth="165.0" style="-fx-border-color: #000000; -fx-border-width: 0 0 1px 0;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="103.0" prefHeight="64.0" prefWidth="611.0">
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Session Note" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="sessionNoteText" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="53.0" prefWidth="487.0" style="-fx-background-radius: 5;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="760.0">
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Status" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="sheduleRadio" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sheduled" textFill="#ffe500">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="completetRadio" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Completed" textFill="#0a7331">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="cancelRadio" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Canceled" textFill="#ef2626">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="165.0" prefHeight="41.0" prefWidth="760.0">
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="130.0" text="Date" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePicker" prefHeight="32.0" style="-fx-background-radius: 5;" />
+                        <Label layoutX="10.0" layoutY="12.0" prefHeight="26.0" prefWidth="47.0" text="Time" textFill="#1e467b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="timeText" focusTraversable="false" prefHeight="32.0" prefWidth="138.0" style="-fx-background-radius: 5;" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="611.0" spacing="5.0">
+               <children>
+                  <Button fx:id="sessionreportBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: #535c68;" text="Session Report" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../../../../../../../../../DOWNLOADS/icons8-statistics-report-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="resetBtn" layoutX="489.0" layoutY="13.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="107.0" style="-fx-background-color: #FC5C65;" text="Reset" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../../../../../../../../../DOWNLOADS/icons8-reset-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteBtn" layoutX="114.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #c0392b;" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../../../../../../../../../DOWNLOADS/icons8-delete-48.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="updateBtn" layoutX="62.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #3498db;" text="Update" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../../../../../../../../../DOWNLOADS/icons8-update-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="saveBtn" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../../../../../../../../../DOWNLOADS/icons8-save-48.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="192.0" prefWidth="622.0" style="-fx-background-color: #4b89dc; -fx-background-radius: 5;" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Upcoming Sessions" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" spacing="5" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <ComboBox fx:id="filterStatusCombo" onAction="#filterStatusAction" prefWidth="150" promptText="Filter by Status" />
+                        <ComboBox fx:id="filterTherapistCombo" onAction="#filterThearpistAction" onMouseClicked="#sessionTableClickAction" prefWidth="150" promptText="Filter by Therapist" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="therapySessionTable" onMouseClicked="#sessionTableClickedAction" style="-fx-background-color: #9FB1C9;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+                     <columns>
+                        <TableColumn fx:id="patientNameColumn" prefWidth="110" text="Patient Name" />
+                        <TableColumn fx:id="therapistColumn" prefWidth="110" text="Therapist" />
+                        <TableColumn fx:id="dateColumn" prefWidth="80" text="Date" />
+                        <TableColumn fx:id="timeColumn" prefWidth="70" text="Time" />
+                        <TableColumn fx:id="statusColumn" prefWidth="80" text="Status" />
+                        <TableColumn fx:id="noteColumn" prefWidth="120" text="Session_note" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

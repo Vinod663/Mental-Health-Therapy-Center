@@ -26,16 +26,19 @@ public class Patients implements SuperEntity {
     private String phone;
     private String email;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Registration> registrations;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<TherapySession> therapySessions;
+
+    @Column(name = "remaining_sessions")
+    private int remainingSessions;
 }

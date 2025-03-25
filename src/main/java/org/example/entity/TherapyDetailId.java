@@ -13,6 +13,6 @@ public class TherapyDetailId {
     private int therapistId;
 
     @Column(name = "program_id")
-    private int programId;
+    private String programId;
 
 }

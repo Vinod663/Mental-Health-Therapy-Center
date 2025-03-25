@@ -24,6 +24,9 @@ public class Registration implements SuperEntity {
    @JoinColumn(name = "program_id")
    private TherapyProgram program;
 
+   @Column(name = "session_count")
+   private int sessionCount;
+
     private String date;
     private String time;
 

@@ -19,10 +19,15 @@ public class Users implements SuperEntity {
     private int id;
 
     private String username;
+
+    @Column(name = "full_name")
+    private String fullname;
+
+    private String email;
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Patients> patients;
 
     /*@OneToMany(mappedBy = "user")

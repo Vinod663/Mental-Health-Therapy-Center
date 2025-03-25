@@ -24,10 +24,10 @@ public class Therapist implements SuperEntity {
     private String phone;
     private String specialization;
 
-    @OneToMany(mappedBy = "therapist")
+    @OneToMany(mappedBy = "therapist", cascade = CascadeType.ALL)
     private List<TherapySession> therapySessions;
 
-    @OneToMany(mappedBy = "therapist")
+    @OneToMany(mappedBy = "therapist", cascade = CascadeType.ALL)
     private List<TherapyDetail> therapyDetails;
 
 

@@ -16,9 +16,8 @@ import java.util.List;
 @Table(name = "program")
 public class TherapyProgram implements SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_id")
-    private int programId;
+    private String programId;
 
     @Column(name = "program_name")
     private String programName;
@@ -36,13 +35,13 @@ public class TherapyProgram implements SuperEntity {
     @JoinColumn(name = "user_id")
     private Users user;*/
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
     private List<Registration> registrations;
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
     private List<TherapyDetail> therapyDetails;
 
 

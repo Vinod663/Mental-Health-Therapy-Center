@@ -24,6 +24,9 @@ public class Payment implements SuperEntity {
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;
 
+    @Column(name = "balance_payment", precision = 10, scale = 2)
+    private BigDecimal balancePayment;
+
     private String date;
     private String time;
 

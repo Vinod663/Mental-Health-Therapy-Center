@@ -8,4 +8,6 @@ public interface LoginDAO extends CrudDAO<Users,String> {
     String getRole();
 
     boolean isWrongPsw();
+
+    Users getUser();
 }
