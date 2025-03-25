@@ -54,7 +54,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void AccountBtnAction(ActionEvent event) {
-        navigateTo("/view/userProfile.fxml");
+        navigateTo("/view/UserProfile.fxml");
     }
 
     @FXML
@@ -110,7 +110,7 @@ public class MainLayoutController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String role = loginBO.getRole();
+        String role = /*loginBO.getRole();*/ "Admin"; /////////////temporary assign /////////////
         AccountBtn.setText(role);
         if (!role.equals("Admin")) {
             therapistBtn.setDisable(true);

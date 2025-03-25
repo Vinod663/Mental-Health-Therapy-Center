@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -10,7 +9,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 public class SessionController {
 
@@ -85,35 +83,5 @@ public class SessionController {
 
     @FXML
     private Button updateBtn;
-
-    @FXML
-    void filterStatusAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void filterThearpistAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void patientComboAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void sessionTableClickAction(MouseEvent event) {
-
-    }
-
-    @FXML
-    void sessionTableClickedAction(MouseEvent event) {
-
-    }
-
-    @FXML
-    void therapistComboAction(ActionEvent event) {
-
-    }
 
 }
