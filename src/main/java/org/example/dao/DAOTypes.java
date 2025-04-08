@@ -1,5 +1,6 @@
 package org.example.dao;
 
 public enum DAOTypes {
-    LOGIN
+    LOGIN,
+    USER
 }

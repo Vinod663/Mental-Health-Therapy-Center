@@ -111,6 +111,8 @@ public class MainLayoutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String role = /*loginBO.getRole();*/ "Admin"; /////////////temporary assign /////////////
+        /*String role=loginBO.getRole();*/
+        navigateTo("/view/UserProfile.fxml");
         AccountBtn.setText(role);
         if (!role.equals("Admin")) {
             therapistBtn.setDisable(true);

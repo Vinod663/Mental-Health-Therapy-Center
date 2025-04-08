@@ -2,6 +2,7 @@ package org.example.bo;
 
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.impl.LoginBOImpl;
+import org.example.bo.custom.impl.UserBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -15,6 +16,9 @@ public class BOFactory {
         switch (boType) {
             case LOGIN -> {
                 return (T) new LoginBOImpl();
+            }
+            case USER -> {
+                 return (T) new UserBOImpl();
             }
         }
         return null;

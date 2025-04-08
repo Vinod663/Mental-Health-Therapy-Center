@@ -85,8 +85,8 @@ public class LoginController implements Initializable {
             *//*e.printStackTrace();*//*
         }*/
         boolean authenticate = loginBO.authenticate(usernameTextField.getText(), passwordField.getText());
-        /*if (authenticate) {*/     /////////////temp/////////////
-            /* System.out.println("Login successful!");*/
+        /*if (authenticate) { */    /////////////temp/////////////
+             /*System.out.println("Login successful!");*/
             /*role = loginBO.getRole();*/  /////////////temp/////////////
             System.out.println("role-"+role);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainLayout.fxml"));

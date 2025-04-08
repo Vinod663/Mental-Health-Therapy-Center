@@ -31,13 +31,13 @@
 
             <!-- Button Section -->
             <HBox alignment="CENTER" spacing="10">
-                <Button onAction="#handleSaveAction" style="-fx-background-color: #4b89dc; -fx-text-fill: white; -fx-background-radius: 5px;" text="Save" />
+                <Button fx:id="saveBtn" onAction="#handleSaveAction" style="-fx-background-color: #4b89dc; -fx-text-fill: white; -fx-background-radius: 5px;" text="Save" />
 
-                <Button onAction="#handleUpdateAction" style="-fx-background-color: #1e467b; -fx-text-fill: white; -fx-background-radius: 5px;" text="Update" />
+                <Button fx:id="updateBtn" onAction="#handleUpdateAction" style="-fx-background-color: #1e467b; -fx-text-fill: white; -fx-background-radius: 5px;" text="Update" />
 
-                <Button onAction="#handleDeleteAction" style="-fx-background-color: #FF6347; -fx-text-fill: white; -fx-background-radius: 5px;" text="Delete" />
+                <Button fx:id="deleteBtn" onAction="#handleDeleteAction" style="-fx-background-color: #FF6347; -fx-text-fill: white; -fx-background-radius: 5px;" text="Delete" />
 
-                <Button onAction="#handleResetAction" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-background-radius: 5px;" text="Reset" />
+                <Button fx:id="resetBtn" onAction="#handleResetAction" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-background-radius: 5px;" text="Reset" />
             </HBox>
         </VBox>
 
@@ -45,7 +45,7 @@
         <VBox prefWidth="350" spacing="10" HBox.hgrow="ALWAYS">
             <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e467b;" text="Receptionists List" />
 
-            <TableView fx:id="receptionistTable" prefHeight="350" style="-fx-background-color: white; -fx-border-color: #4b89dc;">
+            <TableView fx:id="receptionistTable" onMouseClicked="#onClicktableAction" prefHeight="350" style="-fx-background-color: white; -fx-border-color: #4b89dc;">
                 <columns>
                     <TableColumn fx:id="usernameColumn" prefWidth="100" text="Username" />
                     <TableColumn fx:id="fullNameColumn" prefWidth="120" text="Full Name" />

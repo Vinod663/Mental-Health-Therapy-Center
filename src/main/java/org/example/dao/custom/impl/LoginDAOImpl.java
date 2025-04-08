@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
@@ -81,5 +82,25 @@ public class LoginDAOImpl implements LoginDAO {
             return null;
         }
         return null;
+    }
+
+    @Override
+    public List<Users> getAll() throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Users users) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Users users) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean deleteByPK(String pk) throws SQLException {
+        return false;
     }
 }
