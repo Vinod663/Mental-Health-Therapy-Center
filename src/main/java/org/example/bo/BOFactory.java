@@ -1,10 +1,7 @@
 package org.example.bo;
 
 import org.example.bo.custom.BOTypes;
-import org.example.bo.custom.impl.LoginBOImpl;
-import org.example.bo.custom.impl.TherapistBOimpl;
-import org.example.bo.custom.impl.TherapyProgramBOImpl;
-import org.example.bo.custom.impl.UserBOImpl;
+import org.example.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -27,6 +24,9 @@ public class BOFactory {
             }
             case PROGRAM -> {
                 return (T) new TherapyProgramBOImpl();
+            }
+            case THERAPY_DETAIL -> {
+                return (T) new TherapyDetailBOImpl();
             }
         }
         return null;

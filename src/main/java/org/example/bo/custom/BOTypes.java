@@ -4,5 +4,6 @@ public enum BOTypes {
     LOGIN,
     USER,
     THERAPIST,
-    PROGRAM
+    PROGRAM,
+    THERAPY_DETAIL
 }

@@ -1,9 +1,6 @@
 package org.example.dao;
 
-import org.example.dao.custom.impl.LoginDAOImpl;
-import org.example.dao.custom.impl.TherapistDAOImpl;
-import org.example.dao.custom.impl.TherapyProgramDAOImpl;
-import org.example.dao.custom.impl.UserDAOImpl;
+import org.example.dao.custom.impl.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -24,6 +21,7 @@ public class DAOFactory {
             case USER -> (T) new UserDAOImpl();
             case THERAPIST -> (T) new TherapistDAOImpl();
             case PROGRAM -> (T) new TherapyProgramDAOImpl();
+            case THERAPY_DETAIL -> (T) new TherapyDetailDAOImpl();
             /*default -> null;*/
         };
     }

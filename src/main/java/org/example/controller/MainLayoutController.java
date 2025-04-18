@@ -16,8 +16,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainLayoutController implements Initializable {
+
     LoginBO loginBO = (LoginBO) BOFactory.getInstance().getBO(BOTypes.LOGIN);
 
+    @FXML
+    public Button therapyDetailsBtn;
 
     @FXML
     private Button AccountBtn;
@@ -105,6 +108,11 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
+    public void therapyDetailsBtnAction(ActionEvent actionEvent) {
+        navigateTo("/view/TherapyDetail.fxml");
+    }
+
+    @FXML
     void therapistBtnAction(ActionEvent event) {
         navigateTo("/view/Therapist.fxml");
     }
@@ -136,4 +144,6 @@ public class MainLayoutController implements Initializable {
             new Alert(Alert.AlertType.ERROR,"Fail to load page!").show();
         }
     }
+
+
 }

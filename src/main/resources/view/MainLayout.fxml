@@ -90,6 +90,14 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="therapyDetailsBtn" layoutX="10.0" layoutY="98.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#therapyDetailsBtnAction" style="-fx-background-color: #333333;" text="Therapy Details" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </Button>
                   <Button fx:id="patientsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#patientsBtnAction" style="-fx-background-color: #333333;" text="Patients" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
