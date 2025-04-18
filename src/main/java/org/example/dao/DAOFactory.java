@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.dao.custom.impl.LoginDAOImpl;
+import org.example.dao.custom.impl.TherapistDAOImpl;
 import org.example.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
@@ -20,6 +21,7 @@ public class DAOFactory {
         return switch(daoType){
             case LOGIN -> (T) new LoginDAOImpl();
             case USER -> (T) new UserDAOImpl();
+            case THERAPIST -> (T) new TherapistDAOImpl();
             /*default -> null;*/
         };
     }

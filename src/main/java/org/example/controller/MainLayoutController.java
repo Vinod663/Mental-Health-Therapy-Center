@@ -106,7 +106,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void therapistBtnAction(ActionEvent event) {
-
+        navigateTo("/view/Therapist.fxml");
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
