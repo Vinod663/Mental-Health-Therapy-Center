@@ -4,4 +4,5 @@ public enum DAOTypes {
     LOGIN,
     USER,
     THERAPIST,
+    PROGRAM
 }

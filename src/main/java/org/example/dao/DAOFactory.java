@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.dao.custom.impl.LoginDAOImpl;
 import org.example.dao.custom.impl.TherapistDAOImpl;
+import org.example.dao.custom.impl.TherapyProgramDAOImpl;
 import org.example.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
@@ -22,6 +23,7 @@ public class DAOFactory {
             case LOGIN -> (T) new LoginDAOImpl();
             case USER -> (T) new UserDAOImpl();
             case THERAPIST -> (T) new TherapistDAOImpl();
+            case PROGRAM -> (T) new TherapyProgramDAOImpl();
             /*default -> null;*/
         };
     }

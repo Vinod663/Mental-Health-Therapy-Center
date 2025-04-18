@@ -91,7 +91,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void programsBtnAction(ActionEvent event) {
-
+        navigateTo("/view/TherapyProgram.fxml");
     }
 
     @FXML

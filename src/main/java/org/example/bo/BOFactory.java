@@ -3,6 +3,7 @@ package org.example.bo;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.impl.LoginBOImpl;
 import org.example.bo.custom.impl.TherapistBOimpl;
+import org.example.bo.custom.impl.TherapyProgramBOImpl;
 import org.example.bo.custom.impl.UserBOImpl;
 
 public class BOFactory {
@@ -23,6 +24,9 @@ public class BOFactory {
             }
             case THERAPIST -> {
                 return (T) new TherapistBOimpl();
+            }
+            case PROGRAM -> {
+                return (T) new TherapyProgramBOImpl();
             }
         }
         return null;
