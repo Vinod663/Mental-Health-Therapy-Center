@@ -5,5 +5,8 @@ public enum DAOTypes {
     USER,
     THERAPIST,
     PROGRAM,
-    THERAPY_DETAIL
+    THERAPY_DETAIL,
+    PATIENT,
+    REGISTRATION,
+    PAYMENT
 }

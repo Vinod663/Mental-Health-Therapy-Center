@@ -125,5 +125,21 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         }
     }
 
+    @Override
+    public TherapyProgram getProgram(String programId) throws SQLException {
+        Session session = factoryConfiguration.getSession();
+        try {
+            TherapyProgram program = session.get(TherapyProgram.class, programId);
+            return program;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 }

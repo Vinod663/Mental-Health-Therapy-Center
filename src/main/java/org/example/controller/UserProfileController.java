@@ -61,11 +61,11 @@ public class UserProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*if(Objects.equals(loginBO.getRole(), "Admin")){ //////temporary////////
+        if(Objects.equals(loginBO.getRole(), "Admin")){ //////temporary////////
             contactAdminBtn.setVisible(false);
         }else{
             addReceptionistBtn.setDisable(true);
-        }*/
+        }
 
         UserDto user = loginBO.getUser();
         if (user != null) {

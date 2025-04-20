@@ -22,6 +22,9 @@ public class DAOFactory {
             case THERAPIST -> (T) new TherapistDAOImpl();
             case PROGRAM -> (T) new TherapyProgramDAOImpl();
             case THERAPY_DETAIL -> (T) new TherapyDetailDAOImpl();
+            case PATIENT -> (T) new PatientDAOImpl();
+            case REGISTRATION -> (T) new RegistrationDAOImpl();
+            case PAYMENT -> (T) new PaymentDAOImpl();
             /*default -> null;*/
         };
     }

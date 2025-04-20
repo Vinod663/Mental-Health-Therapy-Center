@@ -84,7 +84,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void patientsBtnAction(ActionEvent event) {
-
+        navigateTo("/view/Patient.fxml");
     }
 
     @FXML
@@ -118,8 +118,8 @@ public class MainLayoutController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String role = /*loginBO.getRole();*/ "Admin"; /////////////temporary assign /////////////
-        /*String role=loginBO.getRole();*/
+        /*String role = *//*loginBO.getRole();*//* "Admin";*/ /////////////temporary assign /////////////
+        String role=loginBO.getRole();
         navigateTo("/view/UserProfile.fxml");
         AccountBtn.setText(role);
         if (!role.equals("Admin")) {

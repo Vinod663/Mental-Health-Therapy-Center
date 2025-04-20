@@ -7,6 +7,7 @@ import org.example.dao.custom.TherapyProgramDAO;
 import org.example.dto.TherapyProgramDto;
 import org.example.entity.TherapyProgram;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,19 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     @Override
     public boolean deleteByPK(String programId) throws SQLException {
         return therapyProgramDAO.deleteByPK(programId);
+    }
+    private String programId;
+    private String programName;
+    private String duration;
+    private BigDecimal programCost;
+    private String programDescription;
+
+    @Override
+    public TherapyProgramDto getProgram(String programId) throws SQLException {
+        TherapyProgram program = therapyProgramDAO.getProgram(programId);
+        if(program != null){
+            return new TherapyProgramDto(program.getProgramId(), program.getProgramName(), program.getDuration(), program.getProgramCost(), program.getProgramDescription());
+        }
+        return null;
     }
 }

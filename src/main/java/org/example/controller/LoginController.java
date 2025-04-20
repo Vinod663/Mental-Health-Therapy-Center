@@ -85,9 +85,9 @@ public class LoginController implements Initializable {
             *//*e.printStackTrace();*//*
         }*/
         boolean authenticate = loginBO.authenticate(usernameTextField.getText(), passwordField.getText());
-        /*if (authenticate) { */    /////////////temp/////////////
-             /*System.out.println("Login successful!");*/
-            /*role = loginBO.getRole();*/  /////////////temp/////////////
+        if (authenticate) {     /////////////temp/////////////
+            System.out.println("Login successful!");
+            role = loginBO.getRole();  /////////////temp/////////////
             System.out.println("role-"+role);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainLayout.fxml"));
             AnchorPane newPane=fxmlLoader.load();
@@ -111,7 +111,7 @@ public class LoginController implements Initializable {
                 });
                 timeline.play();
             });
-        /*} else {    /////////////temp/////////////
+        } else {    /////////////temp/////////////
             boolean wrongPsw = loginBO.isWrongPsw();
             if(wrongPsw) {
                 usernameTextField.setStyle("-fx-text-box-border: green; -fx-text-inner-color: green;");
@@ -121,7 +121,7 @@ public class LoginController implements Initializable {
                 passwordHBox.setStyle("-fx-border-color: red; -fx-text-inner-color: red; -fx-border-radius: 5px;");
             }
             System.out.println("Try again");
-        }*/
+        }
     }
 
 

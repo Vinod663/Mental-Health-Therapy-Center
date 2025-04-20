@@ -28,6 +28,9 @@ public class BOFactory {
             case THERAPY_DETAIL -> {
                 return (T) new TherapyDetailBOImpl();
             }
+            case PATIENT -> {
+                return (T) new PatientBOImpl();
+            }
         }
         return null;
     }
