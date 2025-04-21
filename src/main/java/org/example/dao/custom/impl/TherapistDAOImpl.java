@@ -113,4 +113,8 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
 
+    @Override
+    public Therapist get(int therapistId, Session session) {
+        return session.get(Therapist.class, therapistId);
+    }
 }

@@ -1,5 +1,6 @@
 package org.example.dao.custom.impl;
 
+import org.example.config.FactoryConfiguration;
 import org.example.dao.custom.PatientDAO;
 import org.example.entity.Patients;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PatientDAOImpl implements PatientDAO {
+    private final FactoryConfiguration factoryConfiguration=FactoryConfiguration.getInstance();
     @Override
     public List<Patients> getAll() throws Exception {
         return List.of();
@@ -65,6 +67,22 @@ public class PatientDAOImpl implements PatientDAO {
     public boolean update(Patients patient, Session session) throws SQLException {
         session.merge(patient);
         return true;
+    }
+
+    @Override
+    public int getRemainingSessions(int patientId) {
+        Session session = factoryConfiguration.getInstance().getSession();
+        try {
+            String hql = "SELECT p.remainingSessions FROM Patients p WHERE p.id = :patientId";
+            Query<Integer> query = session.createQuery(hql, Integer.class);
+            query.setParameter("patientId", patientId);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            session.close();
+        }
     }
 
 

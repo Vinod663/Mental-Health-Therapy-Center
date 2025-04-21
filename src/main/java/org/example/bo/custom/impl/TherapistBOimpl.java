@@ -3,6 +3,7 @@ package org.example.bo.custom.impl;
 import org.example.bo.custom.TherapistBO;
 import org.example.dao.DAOFactory;
 import org.example.dao.DAOTypes;
+import org.example.dao.custom.QueryDAO;
 import org.example.dao.custom.TherapistDAO;
 import org.example.dto.TherapistDto;
 import org.example.entity.Therapist;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class TherapistBOimpl implements TherapistBO {
     TherapistDAO therapistDAO = DAOFactory.getInstance().getDAO(DAOTypes.THERAPIST);
+    QueryDAO queryDAO = DAOFactory.getInstance().getDAO(DAOTypes.QUERY);
 
 
     @Override
@@ -60,4 +62,25 @@ public class TherapistBOimpl implements TherapistBO {
     public boolean deleteByPK(String therapistId) throws SQLException {
         return therapistDAO.deleteByPK(therapistId);
     }
+
+    @Override
+    public List<TherapistDto> getAllTherapistOptions(String patientId) throws Exception {
+        List<Therapist> therapistEntities = queryDAO.getTherapistsByPatientId(patientId);
+
+        // Convert to DTOs
+        List<TherapistDto> dtoList = new ArrayList<>();
+        for (Therapist t : therapistEntities) {
+            dtoList.add(new TherapistDto(
+                    t.getId(),
+                    t.getName(),
+                    t.getEmail(),
+                    t.getPhone(),
+                    t.getSpecialization()
+            ));
+        }
+
+        return dtoList;
+    }
+
+
 }

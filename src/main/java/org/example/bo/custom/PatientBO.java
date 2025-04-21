@@ -14,4 +14,6 @@ public interface PatientBO extends SuperBO {
     PatientDto getPatientById(int id) throws SQLException;
     boolean deletePatient(int id) throws SQLException;
     boolean updatePatient(PatientDto patientDTO) throws SQLException;
+
+    int getRemainingSessions(int patientId);
 }

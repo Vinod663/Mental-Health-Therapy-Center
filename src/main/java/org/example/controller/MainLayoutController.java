@@ -89,7 +89,7 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     void paymentBtnAction(ActionEvent event) {
-
+        navigateTo("/view/Payment.fxml");
     }
 
     @FXML

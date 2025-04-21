@@ -13,4 +13,5 @@ public interface TherapistBO extends SuperBO {
     boolean update(TherapistDto therapistDto) throws SQLException;
     List<TherapistDto> getAll() throws Exception;
     boolean deleteByPK(String therapistId) throws SQLException;
+    List<TherapistDto> getAllTherapistOptions(String patientId) throws Exception;
 }

@@ -31,6 +31,12 @@ public class BOFactory {
             case PATIENT -> {
                 return (T) new PatientBOImpl();
             }
+            case THERAPY_SESSION -> {
+                return (T) new TherapySessionBOImpl();
+            }
+            case PAYMENT -> {
+                return (T) new PaymentBOImpl();
+            }
         }
         return null;
     }

@@ -108,6 +108,10 @@ public class PatientController implements Initializable {
         clearFields();
         setPatientId();
         txtAmount.setDisable(cmbProgram.getSelectionModel().getSelectedItem() == null);
+        updateBtn.setDisable(true);
+        deleteBtn.setDisable(true);
+        saveBtn.setDisable(false);
+        txtAmount.setText("10000.00");
     }
 
     @FXML
@@ -343,10 +347,16 @@ public class PatientController implements Initializable {
                 txtPhone.setText(patient.getPhone());
                 txtEmail.setText(patient.getEmail());
                 txtSessions.setText(String.valueOf(patient.getRemainingSessions()));
+
                 cmbPaymentType.setValue(patient.getPaymentType());
-                txtAmount.setText(String.valueOf(patient.getAmount()));
+                /*txtAmount.setText(String.valueOf(patient.getAmount()));
                 txtAmount.setDisable(txtAmount.getText().isEmpty());
-                txtBalance.setText(String.valueOf(patient.getBalancePayment()));
+                txtBalance.setText(String.valueOf(patient.getBalancePayment()));*/
+                caclculateBalance();
+                updateBtn.setDisable(false);
+                deleteBtn.setDisable(false);
+                saveBtn.setDisable(true);
+
 
                 // Set program in the combo box
                 String programId = patient.getProgramId();
@@ -373,7 +383,7 @@ public class PatientController implements Initializable {
         txtBalance.setText("0.00");
         userId = loginBO.getUser().getId();
 
-        txtAmount.setDisable(cmbProgram.getSelectionModel().getSelectedItem() == null);
+        txtAmount.setDisable(cmbProgram.getSelectionModel().getSelectedItem() == null&&tblPatients.getSelectionModel().getSelectedItem()==null);
         txtAmount.textProperty().addListener((obs, oldText, newText) -> {
             if (newText.matches("\\d+(\\.\\d+)?")) {
                 try {
@@ -385,6 +395,10 @@ public class PatientController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.WARNING, "Please enter a valid amount (like 100 or 100.50)").show();}
         });
+
+        updateBtn.setDisable(true);
+        deleteBtn.setDisable(true);
+
 
 
 
@@ -446,37 +460,55 @@ public class PatientController implements Initializable {
 
     public void cmbProgramAction(ActionEvent actionEvent) throws SQLException {
         caclculateBalance();
-        txtAmount.setDisable(cmbProgram.getSelectionModel().getSelectedItem() == null);
+        txtAmount.setDisable(cmbProgram.getSelectionModel().getSelectedItem() == null&&tblPatients.getSelectionModel().getSelectedItem()==null);
     }
 
     private void caclculateBalance() throws SQLException {
+        PatientTm selectedPatient = tblPatients.getSelectionModel().getSelectedItem();
+
+        if (selectedPatient != null) {
+            try {
+                PatientDto patient = patientBO.getPatientById(selectedPatient.getId());
+                cmbPaymentType.setValue(patient.getPaymentType());
+                txtAmount.setText(String.valueOf(patient.getAmount()));
+                txtBalance.setText(String.valueOf(patient.getBalancePayment()));
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Error loading patient data: " + e.getMessage()).show();
+                e.printStackTrace();
+            }
+            return;
+        }
+
         String text = txtAmount.getText();
 
-        // Check if the entered amount is a valid number
-        if (text.matches("\\d+(\\.\\d+)?")) {
-            // Check if a program is selected in the combo box
-            if (cmbProgram.getSelectionModel().getSelectedItem() != null) {
-                // Now it's safe to split
-                TherapyProgramDto program = programBO.getProgram(
-                        cmbProgram.getSelectionModel().getSelectedItem().split(" - ")[0]);
-
-                if (program != null) {
-                    double amount = Double.parseDouble(text);
-                    double balance = program.getProgramCost().doubleValue() - amount;
-                    txtBalance.setText(String.valueOf(balance));
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to load program details").show();
-                }
-            } else {
-                // During form reset/initialization, don't show warning
-                // Just set balance to 0 or another default value
-                txtBalance.setText("0.00");
-                // Do NOT show alert here: Remove or comment out the line below
-                // new Alert(Alert.AlertType.WARNING, "Please select a program").show();
-            }
-        } else {
-            // Not a valid number → show alert
+        // Validate amount
+        if (!text.matches("\\d+(\\.\\d+)?")) {
             new Alert(Alert.AlertType.WARNING, "Please enter a valid amount (like 100 or 100.50)").show();
+            return;
+        }
+
+        // Validate selected program
+        String selectedProgram = cmbProgram.getSelectionModel().getSelectedItem();
+        if (selectedProgram == null) {
+            txtBalance.setText("0.00"); // During reset or no selection
+            return;
+        }
+
+        // Calculate balance
+        try {
+            String programId = selectedProgram.split(" - ")[0];
+            TherapyProgramDto program = programBO.getProgram(programId);
+
+            if (program != null) {
+                double amount = Double.parseDouble(text);
+                double balance = program.getProgramCost().doubleValue() - amount;
+                txtBalance.setText(String.format("%.2f", balance));
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to load program details").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Something went wrong: " + e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 

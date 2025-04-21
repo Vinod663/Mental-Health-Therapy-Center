@@ -8,5 +8,7 @@ public enum DAOTypes {
     THERAPY_DETAIL,
     PATIENT,
     REGISTRATION,
-    PAYMENT
+    PAYMENT,
+    QUERY,
+    THERAPY_SESSION
 }

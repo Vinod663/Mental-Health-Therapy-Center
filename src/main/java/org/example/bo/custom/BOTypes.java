@@ -6,5 +6,7 @@ public enum BOTypes {
     THERAPIST,
     PROGRAM,
     THERAPY_DETAIL,
-    PATIENT
+    PATIENT,
+    THERAPY_SESSION,
+    PAYMENT
 }

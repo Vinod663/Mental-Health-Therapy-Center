@@ -373,4 +373,9 @@ public class PatientBOImpl implements PatientBO {
             session.close();
         }
     }
+
+    @Override
+    public int getRemainingSessions(int patientId) {
+       return patientDAO.getRemainingSessions(patientId);
+    }
 }
