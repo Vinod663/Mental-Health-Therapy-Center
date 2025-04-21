@@ -12,9 +12,8 @@ import org.example.bo.BOFactory;
 import org.example.bo.custom.*;
 import org.example.dto.PaymentDto;
 import org.example.dto.TherapistDto;
-import org.example.dto.TherapyProgramDto;
 import org.example.dto.TherapySessionDto;
-import org.example.view.tdm.PatientTm;
+import org.example.entity.TherapySessionId;
 import org.example.view.tdm.TherapySessionTm;
 
 import java.math.BigDecimal;
@@ -39,6 +38,9 @@ public class SessionController implements Initializable {
 
     @FXML
     private Button clearBtn;
+
+    @FXML
+    public Label minAmountLabel;
 
     @FXML
     private ComboBox<String> cmbPatient;
@@ -77,9 +79,6 @@ public class SessionController implements Initializable {
     private DatePicker datePicker;
 
     @FXML
-    private Button deleteBtn;
-
-    @FXML
     private Button saveBtn;
 
     @FXML
@@ -98,7 +97,7 @@ public class SessionController implements Initializable {
     void btnClearOnAction(ActionEvent event) {
         clearFields();
         updateBtn.setDisable(true);
-        deleteBtn.setDisable(true);
+        /*deleteBtn.setDisable(true)*/;
         saveBtn.setDisable(false);
     }
 
@@ -114,11 +113,6 @@ public class SessionController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnSaveOnAction(ActionEvent event) {
         if (!validateInputs()) {
             return;
@@ -126,6 +120,9 @@ public class SessionController implements Initializable {
 
         try {
             TherapySessionDto sessionDTO = collectSessionData();
+            if (sessionDTO == null) {
+                return; // stop further execution if sessionDTO is null
+            }
             double paymentAmount = 0.0;
 
             if (!txtPaymentAmount.getText().isEmpty()) {
@@ -151,7 +148,46 @@ public class SessionController implements Initializable {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        calculateMinimumPayment();
+        if (!validateInputs()) {
+            return;
+        }
+        try{
+            TherapySessionDto sessionDTO = collectSessionDataUpdate();
+            if (sessionDTO == null) {
+                return; // stop further execution if sessionDTO is null
+            }
+            TherapySessionId id=new TherapySessionId(
+                    sessionDTO.getTherapistId(),
+                    sessionDTO.getPatientId()
+            );
 
+            double paymentAmount = 0.0;
+
+            if (!txtPaymentAmount.getText().isEmpty()) {
+                paymentAmount = Double.parseDouble(txtPaymentAmount.getText().trim());
+            }
+
+            if (paymentAmount < 0||paymentAmount<Double.parseDouble(String.valueOf(minimumPaymentAmount))) {
+                new Alert(Alert.AlertType.ERROR, "Payment amount must be greater than or equal to " + minimumPaymentAmount).show();
+                return;
+            }
+
+            boolean success = therapySessionBO.ReScheduleSession(sessionDTO, paymentAmount,id);
+
+            if (success) {
+                new Alert(Alert.AlertType.INFORMATION, "Session Updated successfully!").show();
+                clearFields();
+                loadAllSessions();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Update session. Check if therapist is available or patient has remaining sessions.").show();
+            }
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            throw new RuntimeException(e);
+
+        }
     }
 
     @FXML
@@ -162,7 +198,7 @@ public class SessionController implements Initializable {
     @FXML
     void tblSessionsOnMouseClicked(MouseEvent event) {
         updateBtn.setDisable(false);
-        deleteBtn.setDisable(false);
+        /*deleteBtn.setDisable(false);*/
         saveBtn.setDisable(true);
         TherapySessionTm selectedSession = tblSessions.getSelectionModel().getSelectedItem();
         if (selectedSession != null) {
@@ -214,7 +250,7 @@ public class SessionController implements Initializable {
         // Setup date picker with current date
         datePicker.setValue(LocalDate.now());
         updateBtn.setDisable(true);
-        deleteBtn.setDisable(true);
+        /*deleteBtn.setDisable(true);*/
     }
 
     private void loadAllSessions() {
@@ -316,7 +352,9 @@ public class SessionController implements Initializable {
             BigDecimal roundedPayment = minimumPayment.setScale(0, RoundingMode.CEILING);
             System.out.println("Rounded payment: " + roundedPayment);
             minimumPaymentAmount = roundedPayment;
-            txtPaymentAmount.setText(String.valueOf(roundedPayment));
+
+            /*txtPaymentAmount.setText(String.valueOf(roundedPayment));*/
+            minAmountLabel.setText(" "+String.valueOf(roundedPayment)+".00");
         } else {
             txtPaymentAmount.setText("0.00");
         }
@@ -347,12 +385,55 @@ public class SessionController implements Initializable {
         sessionDTO.setPatientName(patientSelection.split(" - ")[1]);
         sessionDTO.setTherapistName(therapistSelection.split(" - ")[1]);
 
-        handleDateTime(sessionDTO);
+        boolean conflict = handleDateTime(sessionDTO);
+        if (conflict) {
+            /*new Alert(Alert.AlertType.ERROR, "Session conflict! Either the patient or therapist has another session at this time.").show();*/
+            return null; // stop further execution
+        }
 
         return sessionDTO;
     }
 
-    private void handleDateTime(TherapySessionDto sessionDto) {
+    private TherapySessionDto collectSessionDataUpdate() {
+        TherapySessionDto sessionDTO = new TherapySessionDto();
+
+        // Parse patient ID from combobox (format: "ID - Name")
+        String patientSelection = cmbPatient.getValue();
+        int patientId = Integer.parseInt(patientSelection.split(" - ")[0]);
+        sessionDTO.setPatientId(patientId);
+
+        // Parse therapist ID from combobox
+        String therapistSelection = cmbTherapist.getValue();
+        int therapistId = Integer.parseInt(therapistSelection.split(" - ")[0]);
+        sessionDTO.setTherapistId(therapistId);
+
+        // Set date, time, and status
+        sessionDTO.setDate(datePicker.getValue().format(DateTimeFormatter.ISO_DATE));
+        sessionDTO.setTime(cmbTime.getValue());
+        sessionDTO.setStatus(cmbStatus.getValue());
+
+        // Set session notes
+        sessionDTO.setSessionNote(txtSessionNotes.getText().trim());
+
+        // Set names for display purposes
+        sessionDTO.setPatientName(patientSelection.split(" - ")[1]);
+        sessionDTO.setTherapistName(therapistSelection.split(" - ")[1]);
+
+        TherapySessionId id=new TherapySessionId(
+                sessionDTO.getTherapistId(),
+                sessionDTO.getPatientId()
+        );
+
+        boolean conflict = handleDateTimeUpdate(sessionDTO,id);
+        if (conflict) {
+            /*new Alert(Alert.AlertType.ERROR, "Session conflict! Either the patient or therapist has another session at this time.").show();*/
+            return null; // stop further execution
+        }
+
+        return sessionDTO;
+    }
+
+    private boolean handleDateTime(TherapySessionDto sessionDto) {
         boolean conflictExists = therapySessionBO.isSessionConflict(
                 sessionDto.getPatientId(),
                 sessionDto.getTherapistId(),
@@ -361,9 +442,26 @@ public class SessionController implements Initializable {
         );
 
         if (conflictExists) {
-            new Alert(Alert.AlertType.WARNING, "Session conflict! Either the patient or therapist has another session at this time.").show();
-            return; // stop further execution
+            new Alert(Alert.AlertType.ERROR, "Session conflict! Either the patient or therapist has another session at this time.").show();
+            return conflictExists; // stop further execution
         }
+        return conflictExists;
+    }
+
+    private boolean handleDateTimeUpdate(TherapySessionDto sessionDto, TherapySessionId id) {
+        boolean conflictExists = therapySessionBO.isSessionConflictUpdate(
+                sessionDto.getPatientId(),
+                sessionDto.getTherapistId(),
+                sessionDto.getDate(),
+                sessionDto.getTime(),
+                id
+        );
+
+        if (conflictExists) {
+            new Alert(Alert.AlertType.ERROR, "Session conflict! Either the patient or therapist has another session at this time.").show();
+            return conflictExists; // stop further execution
+        }
+        return conflictExists;
     }
 
     private boolean validateInputs() {

@@ -134,6 +134,125 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         }
     }
 
+    @Override
+    public boolean ReScheduleSession(TherapySessionDto sessionDTO, double paymentAmount, TherapySessionId id) {
+        Session session = factoryConfiguration.getInstance().getSession();
+        Transaction transaction=null;
+
+        try{
+            transaction = session.beginTransaction();
+
+            // Get the therapy session
+            TherapySession therapySession = session.get(TherapySession.class, id);
+            if (therapySession == null) {
+                transaction.rollback();
+                return false;
+            }
+            // Update the patient's remaining sessions based on session status
+            String newStatus = sessionDTO.getStatus();
+            String currentStatus = therapySession.getStatus();
+
+            if (!currentStatus.equals(newStatus)) {
+
+                boolean isCurrentCompletedOrNoShow = currentStatus.equals("Completed") || currentStatus.equals("No-show");
+                boolean isNewCompletedOrNoShow = newStatus.equals("Completed") || newStatus.equals("No-show");
+                boolean isCurrentScheduledOrCancelled = currentStatus.equals("Scheduled") || currentStatus.equals("Cancelled");
+                boolean isNewScheduledOrCancelled = newStatus.equals("Scheduled") || newStatus.equals("Cancelled");
+
+                // Do nothing if just switching between Completed <-> No-show
+                if (isCurrentCompletedOrNoShow && isNewCompletedOrNoShow) {
+                    // No session count changes
+                }
+                // Add +1 if changing from Completed/No-show → Scheduled/Cancelled
+                else if (isCurrentCompletedOrNoShow && isNewScheduledOrCancelled) {
+                    Patients patient = therapySession.getPatient();
+                    patient.setRemainingSessions(patient.getRemainingSessions() + 1);
+
+                    boolean patientUpdated = patientDAO.update(patient, session);
+                    if (!patientUpdated) {
+                        transaction.rollback();
+                        return false;
+                    }
+                }
+                // Subtract -1 if changing from Scheduled/Cancelled → Completed/No-show
+                else if (isCurrentScheduledOrCancelled && isNewCompletedOrNoShow) {
+                    Patients patient = therapySession.getPatient();
+                    patient.setRemainingSessions(patient.getRemainingSessions() - 1);
+
+                    boolean patientUpdated = patientDAO.update(patient, session);
+                    if (!patientUpdated) {
+                        transaction.rollback();
+                        return false;
+                    }
+                }
+            }
+
+            // Update the therapy session
+            Therapist therapist = therapistDAO.get(sessionDTO.getTherapistId(), session);
+            Patients patient = patientDAO.get(sessionDTO.getPatientId(), session);
+            therapySession.setTherapist(therapist);
+            therapySession.setPatient(patient);
+            therapySession.setDate(sessionDTO.getDate());
+            therapySession.setTime(sessionDTO.getTime());
+            therapySession.setStatus(sessionDTO.getStatus());
+            therapySession.setSessionNote(sessionDTO.getSessionNote());
+            boolean sessionUpdated = therapySessionDAO.updateSession(therapySession, session);
+            if (!sessionUpdated) {
+                transaction.rollback();
+                return false;
+            }
+
+            //Update the payment
+            Payment payment = paymentDAO.get(patient.getId(), session);
+            if (payment == null) {
+                transaction.rollback();
+                return false;
+            }
+
+// First, restore the old amount back to the balance
+            payment.setBalancePayment(payment.getBalancePayment().add(payment.getAmount()));
+
+// Then update the new payment amount
+            payment.setAmount(BigDecimal.valueOf(paymentAmount));
+
+// Now subtract the new payment amount from balance
+            payment.setBalancePayment(payment.getBalancePayment().subtract(BigDecimal.valueOf(paymentAmount)));
+
+// Update the rest of the details
+            payment.setDate(sessionDTO.getDate());
+            payment.setTime(sessionDTO.getTime());
+            payment.setPatient(patient);
+
+// Update the payment record
+            boolean paymentUpdated = paymentDAO.update(payment, session);
+            if (!paymentUpdated) {
+                transaction.rollback();
+                return false;
+            }
+
+            transaction.commit();
+            return true;
+
+
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean isSessionConflictUpdate(int patientId, int therapistId, String date, String time, TherapySessionId id) {
+        return therapySessionDAO.isSessionConflictOnUpdate(patientId, therapistId, date, time, id);
+    }
+
+
     private List<TherapySessionDto> convertToDTO(List<TherapySession> sessions) {
         List<TherapySessionDto> dtos = new ArrayList<>();
 
