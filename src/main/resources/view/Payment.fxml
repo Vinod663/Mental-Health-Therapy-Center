@@ -31,7 +31,7 @@
                 <Font name="System Bold" size="13.0" />
             </font>
         </Label>
-        <ComboBox fx:id="cmbPatient" focusTraversable="false" layoutX="390.0" layoutY="64.0" prefHeight="25.0" prefWidth="228.0" promptText="Select Patient" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="64.0" />
+        <ComboBox fx:id="cmbPatient" focusTraversable="false" layoutX="390.0" layoutY="64.0" onAction="#cmbPatientAction" prefHeight="25.0" prefWidth="228.0" promptText="Select Patient" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="64.0" />
 
         <!-- Second Row -->
         <Label layoutX="14.0" layoutY="101.0" text="Program:" textFill="#1e467b" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="101.0">
@@ -39,14 +39,14 @@
                 <Font name="System Bold" size="13.0" />
             </font>
         </Label>
-        <ComboBox fx:id="cmbProgram" focusTraversable="false" layoutX="120.0" layoutY="99.0" prefHeight="25.0" prefWidth="175.0" promptText="Select Program" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="99.0" />
+        <ComboBox fx:id="cmbProgram" focusTraversable="false" layoutX="120.0" layoutY="99.0" onAction="#programAction" prefHeight="25.0" prefWidth="175.0" promptText="Select Program" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="99.0" />
 
         <Label layoutX="316.0" layoutY="101.0" text="Payment Type:" textFill="#1e467b" AnchorPane.leftAnchor="316.0" AnchorPane.topAnchor="101.0">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
         </Label>
-        <ComboBox fx:id="cmbPaymentType" focusTraversable="false" layoutX="420.0" layoutY="99.0" prefHeight="25.0" prefWidth="198.0" promptText="Select Type" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="99.0" />
+        <ComboBox fx:id="cmbPaymentType" focusTraversable="false" layoutX="420.0" layoutY="99.0" onAction="#payTypeCombo" prefHeight="25.0" prefWidth="198.0" promptText="Select Type" style="-fx-background-radius: 5; -fx-border-color: #1e467b; -fx-border-radius: 5;" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="99.0" />
 
         <!-- Third Row -->
         <Label layoutX="14.0" layoutY="136.0" text="Amount (LKR):" textFill="#1e467b" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="136.0">
@@ -69,7 +69,7 @@
         </Label>
 
         <!-- Fifth Row -->
-        <Label layoutX="14.0" layoutY="171.0" text="Remaining Balance:" textFill="#1e467b" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="171.0">
+        <Label layoutX="14.0" layoutY="171.0" text="Pending Payment :" textFill="#1e467b" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="171.0">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>

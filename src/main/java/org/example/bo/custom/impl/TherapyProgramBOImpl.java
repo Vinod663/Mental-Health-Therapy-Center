@@ -3,8 +3,12 @@ package org.example.bo.custom.impl;
 import org.example.bo.custom.TherapyProgramBO;
 import org.example.dao.DAOFactory;
 import org.example.dao.DAOTypes;
+import org.example.dao.custom.RegistrationDAO;
 import org.example.dao.custom.TherapyProgramDAO;
+import org.example.dto.TherapistDto;
 import org.example.dto.TherapyProgramDto;
+import org.example.entity.Registration;
+import org.example.entity.Therapist;
 import org.example.entity.TherapyProgram;
 
 import java.math.BigDecimal;
@@ -15,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class TherapyProgramBOImpl implements TherapyProgramBO {
     TherapyProgramDAO therapyProgramDAO = DAOFactory.getInstance().getDAO(DAOTypes.PROGRAM);
+    RegistrationDAO registrationDAO = DAOFactory.getInstance().getDAO(DAOTypes.REGISTRATION);
     @Override
     public boolean exists(String programId) throws SQLException {
         return therapyProgramDAO.exists(programId);
@@ -84,4 +89,26 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         }
         return null;
     }
+
+    @Override
+    public List<TherapyProgramDto> getAllProgramOptions(String patientId) {
+        List<TherapyProgram> programsByPatientId = registrationDAO.getProgramsByPatientId(Integer.parseInt(patientId));
+
+        // Convert to DTOs
+        List<TherapyProgramDto> dtoList = new ArrayList<>();
+        for (TherapyProgram p : programsByPatientId) {
+            dtoList.add(new TherapyProgramDto(
+                    p.getProgramId(),
+                    p.getProgramName(),
+                    p.getDuration(),
+                    p.getProgramCost(),
+                    p.getProgramDescription()
+
+            ));
+        }
+
+        return dtoList;
+    }
 }
+
+

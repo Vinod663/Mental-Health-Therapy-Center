@@ -19,4 +19,6 @@ public interface PatientDAO extends CrudDAO<Patients,String> {
 
     boolean update(Patients patient, Session session) throws SQLException;
     int getRemainingSessions(int patientId);
+
+    Patients getPatientById(int patientId);
 }

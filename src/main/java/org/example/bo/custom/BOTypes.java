@@ -8,5 +8,6 @@ public enum BOTypes {
     THERAPY_DETAIL,
     PATIENT,
     THERAPY_SESSION,
-    PAYMENT
+    PAYMENT,
+
 }

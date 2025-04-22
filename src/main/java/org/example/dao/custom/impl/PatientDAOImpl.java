@@ -85,5 +85,17 @@ public class PatientDAOImpl implements PatientDAO {
         }
     }
 
+    @Override
+    public Patients getPatientById(int patientId) {
+        Session session = factoryConfiguration.getInstance().getSession();
+        try {
+            return session.get(Patients.class, patientId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
+    }
+
 
 }

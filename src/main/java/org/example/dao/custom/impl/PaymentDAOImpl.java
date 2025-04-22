@@ -18,17 +18,45 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<Payment> getAll() throws Exception {
-        return List.of();
+        Session session = factoryConfiguration.getSession();
+        Query<Payment> query = session.createQuery("FROM Payment", Payment.class);
+        return query.list();
     }
 
     @Override
     public boolean save(Payment payment) throws SQLException {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.merge(payment);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public boolean update(Payment payment) throws SQLException {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.merge(payment);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -53,6 +81,21 @@ public class PaymentDAOImpl implements PaymentDAO {
         } catch (Exception e) {
             e.printStackTrace();
             throw new SQLException("Failed to get latest Payment for patient ID: " + id, e);
+        }
+    }
+
+    @Override
+    public Payment getFromPayId(int id) throws SQLException {
+        Session session = factoryConfiguration.getSession();
+        try {
+            return session.createQuery(
+                            "FROM Payment p WHERE p.paymentId = :paymentID ORDER BY p.paymentId DESC", Payment.class)
+                    .setParameter("paymentID", id)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SQLException("Failed to get latest Payment for payment ID: " + id, e);
         }
     }
 
@@ -109,6 +152,37 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
 
         return amount != null ? amount : BigDecimal.ZERO;
+    }
+
+    @Override
+    public int getLastId(Session session) throws SQLException {
+        String hql = "SELECT MAX(p.id) FROM Payment p";
+        Query<Integer> query = session.createQuery(hql, Integer.class);
+        Integer result = query.getSingleResult();
+        return (result == null) ? 0 : result;
+    }
+
+    @Override
+    public boolean delete(int paymentId) {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Payment payment = session.get(Payment.class, paymentId);
+            if (payment != null) {
+                session.delete(payment);
+                transaction.commit();
+                return true;
+            } else {
+                return false; // Payment not found
+            }
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
 
