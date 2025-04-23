@@ -60,7 +60,7 @@ Crafted with ❤️ using **JavaFX** and **Hibernate**, the application features
 ### Setup Steps
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Mental-Health-Therapy-Center.git
+   git clone https://github.com/Vinod663/Mental-Health-Therapy-Center.git
    ```
 
 2. **Set up the database:**
@@ -80,9 +80,10 @@ Crafted with ❤️ using **JavaFX** and **Hibernate**, the application features
 ```
 src/
 ├── controller/
-├── model/
+├── bo/
 ├── dao/
-├── util/
+├── dto/
+├── entity/
 ├── view/       # FXML files
 ├── reports/    # JRXML & compiled reports
 ├── assets/     # Logos, icons
@@ -103,5 +104,5 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Developed By
 **Vinod Niloshana Fernando**  
-*Student | Software Engineer | Dreamer*  
+*Student | Software Engineer*  
 [🔗 LinkedIn](https://www.linkedin.com/in/vinod-niloshana-09678731a/) • [💻 GitHub](https://github.com/Vinod663)
