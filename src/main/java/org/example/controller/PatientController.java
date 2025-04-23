@@ -198,7 +198,6 @@ public class PatientController implements Initializable {
         }
         patientDTO.setId(Integer.parseInt(idText));
 
-        // Basic patient info
         patientDTO.setName(txtName.getText().trim());
         patientDTO.setGender(cmbGender.getValue());
         patientDTO.setAge(Integer.parseInt(txtAge.getText().trim()));
@@ -212,7 +211,6 @@ public class PatientController implements Initializable {
         String programId = programSelection.split(" - ")[0];
         patientDTO.setProgramId(programId);
 
-        // Session count
         int sessionCount = Integer.parseInt(txtSessions.getText().trim());
         patientDTO.setSessionCount(sessionCount);
         patientDTO.setRemainingSessions(sessionCount);
@@ -490,7 +488,7 @@ public class PatientController implements Initializable {
         // Validate selected program
         String selectedProgram = cmbProgram.getSelectionModel().getSelectedItem();
         if (selectedProgram == null) {
-            txtBalance.setText("0.00"); // During reset or no selection
+            txtBalance.setText("0.00");
             return;
         }
 

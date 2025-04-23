@@ -10,6 +10,7 @@ module Mental.Health.Therapy.Center {
     requires jakarta.persistence;
     requires java.naming;
     requires bcrypt;
+    requires java.desktop;
 
     opens org.example.entity to org.hibernate.orm.core;
     opens org.example.view.tdm to javafx.base;

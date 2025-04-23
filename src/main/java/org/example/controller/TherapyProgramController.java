@@ -108,10 +108,8 @@ public class TherapyProgramController implements Initializable {
             feeField.setText(selectedProgram.getProgramCost().toString());
             descriptionArea.setText(selectedProgram.getProgramDescription());
 
-            // Disable program ID field for updates
             programIDField.setDisable(true);
 
-            // Enable update and delete buttons
             updateButton.setDisable(false);
             deleteButton.setDisable(false);
             saveButton.setDisable(true);
@@ -126,7 +124,6 @@ public class TherapyProgramController implements Initializable {
     @FXML
     void saveBtnAction(ActionEvent event) {
         try {
-            // Get and trim input values
             String programId = programIDField.getText().trim();
             String programName = programNameField.getText().trim();
             String duration = durationField.getText().trim();
@@ -136,7 +133,7 @@ public class TherapyProgramController implements Initializable {
             // Regex patterns
             String idRegex = "^[A-Z]{2}[0-9]{3,6}$";
             String nameRegex = "^[A-Za-z0-9\\s]{3,50}$";
-            String durationRegex = "^[0-9]+(\\s?(days|weeks|months))?$"; // e.g., "4 weeks"
+            String durationRegex = "^[0-9]+(\\s?(days|weeks|months))?$";
             String costRegex = "^\\d+(\\.\\d{2})?$";
             String descriptionRegex = "^.{10,500}$"; // Min 10 characters, max 500
 
@@ -172,20 +169,17 @@ public class TherapyProgramController implements Initializable {
                 return;
             }
 
-            // Check if program ID already exists
             if (programBO.exists(programId)) {
                 new Alert(Alert.AlertType.WARNING, "Program ID already exists. Please use a different ID.").show();
                 return;
             }
 
-            // Parse and check cost
             BigDecimal cost = new BigDecimal(costText);
             if (cost.compareTo(BigDecimal.ZERO) <= 0) {
                 new Alert(Alert.AlertType.WARNING, "Cost must be greater than zero").show();
                 return;
             }
 
-            // Create DTO
             TherapyProgramDto programDto = new TherapyProgramDto(
                     programId,
                     programName,
@@ -218,7 +212,6 @@ public class TherapyProgramController implements Initializable {
         }
 
         try {
-            // Get and trim input values
             String programName = programNameField.getText().trim();
             String duration = durationField.getText().trim();
             String costText = feeField.getText().trim();
@@ -226,7 +219,7 @@ public class TherapyProgramController implements Initializable {
 
             // Regex patterns
             String nameRegex = "^[A-Za-z0-9\\s]{3,50}$";
-            String durationRegex = "^[0-9]+(\\s?(days|weeks|months))?$"; // e.g., "4 weeks"
+            String durationRegex = "^[0-9]+(\\s?(days|weeks|months))?$";
             String costRegex = "^\\d+(\\.\\d{2})?$";
             String descriptionRegex = "^.{10,500}$"; // Min 10 characters, max 500
 
@@ -257,14 +250,14 @@ public class TherapyProgramController implements Initializable {
                 return;
             }
 
-            // Parse cost
+
             BigDecimal cost = new BigDecimal(costText);
             if (cost.compareTo(BigDecimal.ZERO) <= 0) {
                 new Alert(Alert.AlertType.WARNING, "Cost must be greater than zero").show();
                 return;
             }
 
-            // Create DTO
+
             TherapyProgramDto programDto = new TherapyProgramDto(
                     selectedProgramId,
                     programName,

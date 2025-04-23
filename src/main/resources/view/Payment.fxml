@@ -79,6 +79,11 @@
         <!-- Action Buttons -->
         <HBox alignment="CENTER" layoutX="14.0" layoutY="209.0" prefHeight="42.0" prefWidth="604.0" spacing="20.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="209.0">
             <children>
+            <Button fx:id="invoiceBtn" layoutX="42.0" layoutY="14.0" mnemonicParsing="false" onAction="#invoiceBtnAction" prefHeight="34.0" prefWidth="120.0" style="-fx-background-color: #4b89dc; -fx-background-radius: 5;" text="Invoice" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
                 <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="34.0" prefWidth="120.0" style="-fx-background-color: #4b89dc; -fx-background-radius: 5;" text="Save" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />

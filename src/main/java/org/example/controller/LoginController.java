@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ import javafx.util.Duration;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.LoginBO;
+import org.example.bo.exception.LoginException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -85,42 +87,48 @@ public class LoginController implements Initializable {
             *//*e.printStackTrace();*//*
         }*/
         boolean authenticate = loginBO.authenticate(usernameTextField.getText(), passwordField.getText());
-        if (authenticate) {     /////////////temp/////////////
-            System.out.println("Login successful!");
-            role = loginBO.getRole();  /////////////temp/////////////
-            System.out.println("role-"+role);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainLayout.fxml"));
-            AnchorPane newPane=fxmlLoader.load();
+        try {//
+            if (authenticate) {     /////////////temp/////////////
+                System.out.println("Login successful!");
+                role = loginBO.getRole();  /////////////temp/////////////
+                System.out.println("role-"+role);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainLayout.fxml"));
+                AnchorPane newPane=fxmlLoader.load();
 
-            AnchorPane.setTopAnchor(newPane, 0.0);
-            AnchorPane.setRightAnchor(newPane, 0.0);
-            AnchorPane.setBottomAnchor(newPane, 0.0);
-            AnchorPane.setLeftAnchor(newPane, 0.0);
+                AnchorPane.setTopAnchor(newPane, 0.0);
+                AnchorPane.setRightAnchor(newPane, 0.0);
+                AnchorPane.setBottomAnchor(newPane, 0.0);
+                AnchorPane.setLeftAnchor(newPane, 0.0);
 
-            newPane.setTranslateX(ancLogin.getWidth());
-            ancLogin.getChildren().setAll(newPane);
+                newPane.setTranslateX(ancLogin.getWidth());
+                ancLogin.getChildren().setAll(newPane);
 
-            Platform.runLater(() -> {
-                Timeline timeline = new Timeline();
-                KeyValue keyValue = new KeyValue(newPane.translateXProperty(), 0, Interpolator.EASE_IN);
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(500), keyValue);
-                timeline.getKeyFrames().add(keyFrame);
-                timeline.setOnFinished(event1 -> {
-                    ancLogin.getChildren().clear();
-                    ancLogin.getChildren().add(newPane);
+                Platform.runLater(() -> {
+                    Timeline timeline = new Timeline();
+                    KeyValue keyValue = new KeyValue(newPane.translateXProperty(), 0, Interpolator.EASE_IN);
+                    KeyFrame keyFrame = new KeyFrame(Duration.millis(500), keyValue);
+                    timeline.getKeyFrames().add(keyFrame);
+                    timeline.setOnFinished(event1 -> {
+                        ancLogin.getChildren().clear();
+                        ancLogin.getChildren().add(newPane);
+                    });
+                    timeline.play();
                 });
-                timeline.play();
-            });
-        } else {    /////////////temp/////////////
-            boolean wrongPsw = loginBO.isWrongPsw();
-            if(wrongPsw) {
-                usernameTextField.setStyle("-fx-text-box-border: green; -fx-text-inner-color: green;");
-                passwordHBox.setStyle("-fx-border-color: red; -fx-text-inner-color: red; -fx-border-radius: 5px;");
-            } else {
-                usernameTextField.setStyle("-fx-text-box-border: red; -fx-text-inner-color: red;");
-                passwordHBox.setStyle("-fx-border-color: red; -fx-text-inner-color: red; -fx-border-radius: 5px;");
+            } else {    /////////////temp/////////////
+                boolean wrongPsw = loginBO.isWrongPsw();
+                if(wrongPsw) {
+                    usernameTextField.setStyle("-fx-text-box-border: green; -fx-text-inner-color: green;");
+                    passwordHBox.setStyle("-fx-border-color: red; -fx-text-inner-color: red; -fx-border-radius: 5px;");
+                } else {
+                    usernameTextField.setStyle("-fx-text-box-border: red; -fx-text-inner-color: red;");
+                    passwordHBox.setStyle("-fx-border-color: red; -fx-text-inner-color: red; -fx-border-radius: 5px;");
+                }
+                System.out.println("Try again");
+                throw new LoginException("Login failed. Please try again.");
             }
-            System.out.println("Try again");
+        } catch (LoginException e) {//
+            e.printStackTrace();
+            /*new Alert(Alert.AlertType.ERROR, e.getMessage()).show();*/
         }
     }
 

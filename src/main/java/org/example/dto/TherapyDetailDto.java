@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class TherapyDetailDto {
     private int therapistId;
-    private String therapistName; // For display purposes tama use wun na save ekedi
+    private String therapistName;
     private String programId;
-    private String programName; // For display purposes tama use wun na save ekedi
+    private String programName;
     private String note;
 }

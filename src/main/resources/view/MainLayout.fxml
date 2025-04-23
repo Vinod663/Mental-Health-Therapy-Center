@@ -114,16 +114,6 @@
                         <Insets bottom="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="reportBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reoprtBtnAction" style="-fx-background-color: #333333;" text="Reports" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="settingsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#settingsBtnAction" style="-fx-background-color: #333333;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
                </children>
             </VBox>
          </children>

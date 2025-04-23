@@ -43,7 +43,7 @@ public class PatientBOImpl implements PatientBO {
         try {
             transaction = session.beginTransaction();
 
-            // Create Patient entity
+
             Patients patient = new Patients();
             patient.setName(patientDTO.getName());
             patient.setGender(patientDTO.getGender());
@@ -65,7 +65,7 @@ public class PatientBOImpl implements PatientBO {
                 return false;
             }
 
-            // Create Registration entity
+
             Registration registration = new Registration();
             RegistrationId registrationId = new RegistrationId(patientDTO.getProgramId(), patient.getId());
             registration.setId(registrationId);
@@ -88,7 +88,7 @@ public class PatientBOImpl implements PatientBO {
                 return false;
             }
 
-            // Create Payment entity
+
             Payment payment = new Payment();
             payment.setPaymentType(patientDTO.getPaymentType());
             payment.setAmount(patientDTO.getAmount());
@@ -231,14 +231,12 @@ public class PatientBOImpl implements PatientBO {
         try {
             transaction = session.beginTransaction();
 
-            // Load the existing patient
             Patients patient = session.get(Patients.class, patientDTO.getId());
             if (patient == null) {
                 transaction.rollback();
                 return false;
             }
 
-            // Update patient properties
             patient.setName(patientDTO.getName());
             patient.setGender(patientDTO.getGender());
             patient.setAge(patientDTO.getAge());
@@ -247,7 +245,6 @@ public class PatientBOImpl implements PatientBO {
             patient.setEmail(patientDTO.getEmail());
             patient.setRemainingSessions(patientDTO.getRemainingSessions());
 
-            // Load the existing user
             Users user = session.get(Users.class, patientDTO.getUserId());
             patient.setUser(user);
 
@@ -258,20 +255,18 @@ public class PatientBOImpl implements PatientBO {
                 return false;
             }
 
-            // Find existing registration
             String hql = "FROM Registration r WHERE r.patient.id = :patientId";
             Query<Registration> query = session.createQuery(hql, Registration.class);
             query.setParameter("patientId", patient.getId());
             List<Registration> existingRegistrations = query.getResultList();
 
-            // Load therapy program
             TherapyProgram therapyProgram = session.get(TherapyProgram.class, patientDTO.getProgramId());
 
             if (!existingRegistrations.isEmpty()) {
                 Registration existingRegistration = existingRegistrations.get(0);
                 String existingProgramId = existingRegistration.getProgram().getProgramId();
 
-                // If program has changed, we need to remove the old registration and create a new one
+                // If program has changed remove the old registration and create a new one
                 if (!existingProgramId.equals(patientDTO.getProgramId())) {
                     // Remove existing registration first
                     registrationDAO.delete(existingRegistration, session);
@@ -304,7 +299,7 @@ public class PatientBOImpl implements PatientBO {
                     }
                 }
             } else {
-                // Create new registration if none exists (shouldn't normally happen in update)
+                // Create new registration if none exists
                 Registration newRegistration = new Registration();
                 RegistrationId registrationId = new RegistrationId(patientDTO.getProgramId(), patient.getId());
                 newRegistration.setId(registrationId);
@@ -344,7 +339,7 @@ public class PatientBOImpl implements PatientBO {
                     return false;
                 }
             } else {
-                // Create new payment if none exists (shouldn't normally happen in update)
+                // Create new payment if none exists
                 Payment newPayment = new Payment();
                 newPayment.setPaymentType(patientDTO.getPaymentType());
                 newPayment.setAmount(patientDTO.getAmount());

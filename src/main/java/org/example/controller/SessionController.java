@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.*;
+import org.example.bo.exception.SessionConflictException;
 import org.example.dto.PaymentDto;
 import org.example.dto.TherapistDto;
 import org.example.dto.TherapySessionDto;

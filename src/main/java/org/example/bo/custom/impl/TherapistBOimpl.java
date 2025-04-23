@@ -39,8 +39,7 @@ public class TherapistBOimpl implements TherapistBO {
         therapist.setPhone(therapistDto.getPhone());
         therapist.setEmail(therapistDto.getEmail());
         therapist.setSpecialization(therapistDto.getSpecialization());
-        // don't set the lists here as they should be handled by Hibernate
-        // to avoid overwriting existing related data
+
         return therapistDAO.update(therapist);
     }
 
@@ -67,7 +66,6 @@ public class TherapistBOimpl implements TherapistBO {
     public List<TherapistDto> getAllTherapistOptions(String patientId) throws Exception {
         List<Therapist> therapistEntities = queryDAO.getTherapistsByPatientId(patientId);
 
-        // Convert to DTOs
         List<TherapistDto> dtoList = new ArrayList<>();
         for (Therapist t : therapistEntities) {
             dtoList.add(new TherapistDto(

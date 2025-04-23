@@ -44,11 +44,11 @@ public class TherapyDetailDAOImpl implements TherapyDetailDAO {
         Transaction transaction = session.beginTransaction();
 
         try {
-            // Load existing therapy detail to maintain relationships
+
             TherapyDetail existingDetail = session.get(TherapyDetail.class, therapyDetail.getTherapyDetailId());
 
             if (existingDetail != null) {
-                // Only update the note as the composite key parts shouldn't change
+
                 existingDetail.setNote(therapyDetail.getNote());
 
                 session.merge(existingDetail);
@@ -102,7 +102,7 @@ public class TherapyDetailDAOImpl implements TherapyDetailDAO {
         Transaction transaction = session.beginTransaction();
 
         try {
-            // Get references within the same session
+
             Therapist therapist = session.getReference(Therapist.class, therapistId);
             TherapyProgram program = session.getReference(TherapyProgram.class, programId);
 

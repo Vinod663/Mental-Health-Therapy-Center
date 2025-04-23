@@ -28,12 +28,10 @@ public class TherapyDetailBOImpl implements TherapyDetailBO {
                 therapyDetailDto.getProgramId()
         );
 
-        // Create the entity but don't set the references yet
         TherapyDetail therapyDetail = new TherapyDetail();
         therapyDetail.setTherapyDetailId(detailId);
         therapyDetail.setNote(therapyDetailDto.getNote());
 
-        // Let the DAO handle the relationships
         return therapyDetailDAO.saveWithReferences(
                 therapyDetail,
                 therapyDetailDto.getTherapistId(),
@@ -73,7 +71,7 @@ public class TherapyDetailBOImpl implements TherapyDetailBO {
                         detail.getTherapist().getId(),
                         detail.getTherapist().getName(),
                         detail.getProgram().getProgramId(),
-                        detail.getProgram().getProgramName(), // Assuming TherapyProgram has a name field
+                        detail.getProgram().getProgramName(),
                         detail.getNote()
                 ))
                 .collect(Collectors.toList());

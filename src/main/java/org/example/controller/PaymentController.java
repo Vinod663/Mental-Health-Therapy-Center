@@ -4,20 +4,28 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.PatientBO;
 import org.example.bo.custom.PaymentBO;
 import org.example.bo.custom.TherapyProgramBO;
+import org.example.bo.exception.PaymentProcessException;
 import org.example.dto.*;
 import org.example.view.tdm.PatientTm;
 import org.example.view.tdm.PaymentTm;
 import org.example.view.tdm.TherapySessionTm;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
@@ -30,6 +38,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class PaymentController implements Initializable {
+
     TherapyProgramBO programBO   = (TherapyProgramBO) BOFactory.getInstance().getBO(BOTypes.PROGRAM);
     PatientBO patientBO   = (PatientBO) BOFactory.getInstance().getBO(BOTypes.PATIENT);
     PaymentBO paymentBO   = (PaymentBO) BOFactory.getInstance().getBO(BOTypes.PAYMENT);
@@ -37,6 +46,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     private Button clearBtn;
+
+    @FXML
+    public Button invoiceBtn;
 
     @FXML
     private ComboBox<String> cmbPatient;
@@ -95,6 +107,7 @@ public class PaymentController implements Initializable {
         setPaymentId();
         updateBtn.setDisable(true);
         deleteBtn.setDisable(true);
+        invoiceBtn.setDisable(true);
         saveBtn.setDisable(false);
         lblTotalPaid.setText("0.00");
     }
@@ -156,11 +169,16 @@ public class PaymentController implements Initializable {
                     loadAllPatients();
                     new Alert(Alert.AlertType.INFORMATION, "Payment saved successfully!").show();
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save payment!").show();
+                    throw new PaymentProcessException("Failed to save payment!");
+                    /*new Alert(Alert.AlertType.ERROR, "Failed to save payment!").show();*/
                 }
-            } catch (Exception e) {
+            }
+            /*catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
+            }*/
+            catch (PaymentProcessException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         }
     }
@@ -205,12 +223,13 @@ public class PaymentController implements Initializable {
     void tblPaymentsOnMouseClicked(MouseEvent event) {
         updateBtn.setDisable(false);
         deleteBtn.setDisable(false);
+        invoiceBtn.setDisable(false);
         saveBtn.setDisable(true);
         PaymentTm paymentTm = tblPayments.getSelectionModel().getSelectedItem();
         if (paymentTm != null) {
 
             int Id = paymentTm.getPaymentId();
-            txtPaymentId.setText(String.format("P%03d", Id));
+            txtPaymentId.setText(String.format("PAY%03d", Id));
 
             cmbPatient.setValue(String.valueOf(paymentBO.getPaymentById(Id).getPatientId()) + " - " + paymentBO.getPaymentById(Id).getPatientName());
             cmbProgram.setValue(String.valueOf(paymentBO.getPaymentById(Id).getProgramId()) + " - " + paymentBO.getPaymentById(Id).getProgramName());
@@ -313,6 +332,7 @@ public class PaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateBtn.setDisable(true);
         deleteBtn.setDisable(true);
+        invoiceBtn.setDisable(true);
 
         setupComboBoxes();
         setPaymentId();
@@ -442,4 +462,47 @@ public class PaymentController implements Initializable {
     }
 
 
+    public void invoiceBtnAction(ActionEvent actionEvent) {
+        PaymentTm paymentTm = tblPayments.getSelectionModel().getSelectedItem();
+        if (paymentTm != null) {
+            PaymentDto paymentDto = null;
+            try {
+                paymentDto = new PaymentDto();
+                paymentDto.setPaymentId(paymentTm.getPaymentId());
+                paymentDto.setPatientId(Integer.parseInt(cmbPatient.getValue().split(" - ")[0]));
+                paymentDto.setPatientName(paymentTm.getPatientName());
+                paymentDto.setProgramId(String.valueOf(cmbProgram.getValue().split(" - ")[0]));
+                paymentDto.setProgramName(paymentTm.getProgramName());
+                paymentDto.setPaymentType(paymentTm.getPaymentType());
+                paymentDto.setAmount(paymentTm.getAmount());
+                paymentDto.setBalancePayment(new BigDecimal(txtRemainingBalance.getText().trim()));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Payment-Invoice.fxml"));
+                Parent load= fxmlLoader.load();
+
+                PaymentInvoiceController controller = fxmlLoader.getController();
+                controller.setPaymentDto(paymentDto);
+
+                Stage stage = new Stage();
+                stage.setTitle("Payment Invoice");
+                stage.setScene(new Scene(load));
+                stage.setResizable(false);
+                stage.setFullScreen(false);
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                Window owner = invoiceBtn.getScene().getWindow();
+                stage.initOwner(owner);
+
+                stage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to load invoice: " + e.getMessage()).show();
+            }
+        }
+    }
 }

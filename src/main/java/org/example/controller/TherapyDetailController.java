@@ -124,7 +124,6 @@ public class TherapyDetailController implements Initializable {
     @FXML
     void saveBtnAction(ActionEvent event) {
         try {
-            // Validate input fields
             if (therapistComboBox.getValue() == null ||
                     programComboBox.getValue() == null ||
                     noteField.getText().isEmpty()) {
@@ -137,7 +136,7 @@ public class TherapyDetailController implements Initializable {
             int therapistId = extractTherapistId(therapistComboBox.getValue());
             String programId = extractProgramId(programComboBox.getValue());
 
-            // Create TherapyDetailDto from input fields
+
             TherapyDetailDto detailDto = new TherapyDetailDto(
                     therapistId,
                     getTherapistNameById(therapistId),
@@ -188,13 +187,11 @@ public class TherapyDetailController implements Initializable {
         }
 
         try {
-            // Validate input fields
             if (noteField.getText().isEmpty()) {
                 new Alert(Alert.AlertType.WARNING, "Please fill the note field").show();
                 return;
             }
 
-            // Create TherapyDetailDto from input fields
             TherapyDetailDto detailDto = new TherapyDetailDto(
                     selectedTherapistId,
                     getTherapistNameById(selectedTherapistId),

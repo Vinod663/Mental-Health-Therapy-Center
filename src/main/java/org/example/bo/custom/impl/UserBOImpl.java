@@ -42,20 +42,19 @@ public class UserBOImpl implements UserBO {
     public boolean update(UserDto userDto) throws SQLException {
         Users user = new Users();
 
-        user.setId(userDto.getId()); // ID is important for finding the correct record
+        user.setId(userDto.getId());
         user.setUsername(userDto.getUsername());
         user.setFullname(userDto.getFullName());
         user.setEmail(userDto.getEmail());
 
-        // Only hash and set the password if userDto.getPassword() is not null or empty
         if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
             String hashedPassword = BCrypt.withDefaults().hashToString(12, userDto.getPassword().toCharArray());
             user.setPassword(hashedPassword);
         } else {
-            user.setPassword(null); // Let DAO handle skipping update if password is null
+            user.setPassword(null);
         }
 
-        return userDAO.update(user); // Calls your updated DAO method
+        return userDAO.update(user);
     }
 
     @Override

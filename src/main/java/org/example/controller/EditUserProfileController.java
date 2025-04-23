@@ -23,7 +23,7 @@ public class EditUserProfileController implements Initializable {
     LoginBO loginBO = (LoginBO) BOFactory.getInstance().getBO(BOTypes.LOGIN);
     UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOTypes.USER);
 
-    private int selectedUserId = -1; // This should be set when a user is selected for editing
+    private int selectedUserId = -1;
     private String role;
 
     public AnchorPane editProfileAnchor;
@@ -82,7 +82,7 @@ public class EditUserProfileController implements Initializable {
                 checkedPassword = password;
             } else {
                 showAlert("Invalid Password", "Password must be at least 6 characters and contain letters and numbers.");
-                return; // Stop the method if invalid
+                return;
             }
         }
 

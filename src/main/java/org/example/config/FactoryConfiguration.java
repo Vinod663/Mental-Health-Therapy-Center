@@ -16,7 +16,6 @@ public class FactoryConfiguration {
         Configuration configuration = new Configuration();//add configuration file
         Properties properties = new Properties();//add properties
 
-        /*add already created hibernate file to properties in current thread */
         try {
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("hibernate.properties"));//load properties file
         } catch (IOException e) {
@@ -24,8 +23,8 @@ public class FactoryConfiguration {
             e.printStackTrace();
         }
 
-        configuration.setProperties(properties);//add properties to configuration
-        configuration.addAnnotatedClass(Users.class);  //add annotated class to configuration
+        configuration.setProperties(properties);
+        configuration.addAnnotatedClass(Users.class);
         configuration.addAnnotatedClass(Patients.class);
         configuration.addAnnotatedClass(TherapyProgram.class);
         configuration.addAnnotatedClass(Registration.class);
@@ -33,7 +32,7 @@ public class FactoryConfiguration {
         configuration.addAnnotatedClass(Therapist.class);
         configuration.addAnnotatedClass(TherapySession.class);
         configuration.addAnnotatedClass(TherapyDetail.class);
-        sessionFactory = configuration.buildSessionFactory();//build session factory
+        sessionFactory = configuration.buildSessionFactory();
 
     }
 

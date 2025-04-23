@@ -57,7 +57,7 @@ public class TherapistDAOImpl implements TherapistDAO {
         Transaction transaction = session.beginTransaction();
 
         try {
-            // First load the existing therapist to ensure we don't lose relationships
+
             Therapist existingTherapist = session.get(Therapist.class, therapist.getId());
 
             if (existingTherapist != null) {

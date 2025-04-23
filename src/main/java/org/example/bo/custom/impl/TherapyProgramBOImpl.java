@@ -34,7 +34,6 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         program.setProgramCost(programDto.getProgramCost());
         program.setProgramDescription(programDto.getProgramDescription());
 
-        // Initialize empty collections for relationships
         program.setRegistrations(new ArrayList<>());
         program.setPayments(new ArrayList<>());
         program.setTherapyDetails(new ArrayList<>());
@@ -66,7 +65,6 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         program.setProgramCost(programDto.getProgramCost());
         program.setProgramDescription(programDto.getProgramDescription());
 
-        // We don't set collections here to preserve existing relationships
 
         return therapyProgramDAO.update(program);
     }
@@ -94,7 +92,6 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     public List<TherapyProgramDto> getAllProgramOptions(String patientId) {
         List<TherapyProgram> programsByPatientId = registrationDAO.getProgramsByPatientId(Integer.parseInt(patientId));
 
-        // Convert to DTOs
         List<TherapyProgramDto> dtoList = new ArrayList<>();
         for (TherapyProgram p : programsByPatientId) {
             dtoList.add(new TherapyProgramDto(

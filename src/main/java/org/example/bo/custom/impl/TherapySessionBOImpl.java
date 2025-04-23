@@ -36,7 +36,6 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         try{
             transaction = session.beginTransaction();
 
-            // Get the patient and therapist
             Patients patient = patientDAO.get(therapySessionDTO.getPatientId(), session);
             Therapist therapist = therapistDAO.get(therapySessionDTO.getTherapistId(), session);
 
@@ -45,13 +44,11 @@ public class TherapySessionBOImpl implements TherapySessionBO {
                 return false;
             }
 
-            // Check if patient has remaining sessions
             if (patient.getRemainingSessions() <= 0) {
                 transaction.rollback();
                 return false;
             }
 
-            // Save the therapy session
             TherapySessionId id = new TherapySessionId(therapist.getId(), patient.getId());
 
             TherapySession therapySession=new TherapySession();
@@ -85,7 +82,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
             // Save the payment
             Payment pAyDetail = paymentDAO.get(patient.getId(), session);
-            // Create Payment entity
+
             Payment payment = new Payment();
             payment.setPaymentType(pAyDetail.getPaymentType());
             payment.setAmount(BigDecimal.valueOf(paymentAmount));
@@ -95,7 +92,6 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             payment.setPatient(patient);
             payment.setProgram(pAyDetail.getProgram());
 
-            // Save payment
             boolean paymentSaved = paymentDAO.save(payment, session);
             if (!paymentSaved) {
                 transaction.rollback();
@@ -144,7 +140,6 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         try{
             transaction = session.beginTransaction();
 
-            // Get the therapy session
             TherapySession therapySession = session.get(TherapySession.class, id);
             if (therapySession == null) {
                 transaction.rollback();
@@ -163,7 +158,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
                 // Do nothing if just switching between Completed <-> No-show
                 if (isCurrentCompletedOrNoShow && isNewCompletedOrNoShow) {
-                    // No session count changes
+
                 }
                 // Add +1 if changing from Completed/No-show → Scheduled/Cancelled
                 else if (isCurrentCompletedOrNoShow && isNewScheduledOrCancelled) {
@@ -211,21 +206,19 @@ public class TherapySessionBOImpl implements TherapySessionBO {
                 return false;
             }
 
-// First, restore the old amount back to the balance
+            // First, restore the old amount back to the balance
             payment.setBalancePayment(payment.getBalancePayment().add(payment.getAmount()));
 
-// Then update the new payment amount
+            // Then update the new payment amount
             payment.setAmount(BigDecimal.valueOf(paymentAmount));
 
-// Now subtract the new payment amount from balance
+            // Now subtract the new payment amount from balance
             payment.setBalancePayment(payment.getBalancePayment().subtract(BigDecimal.valueOf(paymentAmount)));
 
-// Update the rest of the details
             payment.setDate(sessionDTO.getDate());
             payment.setTime(sessionDTO.getTime());
             payment.setPatient(patient);
 
-// Update the payment record
             boolean paymentUpdated = paymentDAO.update(payment, session);
             if (!paymentUpdated) {
                 transaction.rollback();

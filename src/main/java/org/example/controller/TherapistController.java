@@ -98,14 +98,14 @@ public class TherapistController implements Initializable {
     void onClickedAction(MouseEvent event) {
         TherapistTM selectedTherapist = therapistTable.getSelectionModel().getSelectedItem();
         if (selectedTherapist != null) {
-            // Populate fields with selected therapist data
+
             selectedTherapistId = selectedTherapist.getId();
             therapistNameField.setText(selectedTherapist.getName());
             emailField.setText(selectedTherapist.getEmail());
             phoneField.setText(selectedTherapist.getPhone());
             specializationField.setText(selectedTherapist.getSpecialization());
 
-            // Enable update and delete buttons
+
             updateButton.setDisable(false);
             deleteButton.setDisable(false);
             saveButton.setDisable(true);

@@ -33,7 +33,7 @@ public class PaymentBOImpl implements PaymentBO {
             paymentDto.setBalancePayment(payment.getBalancePayment());
             return paymentDto;
         } else {
-            return null; // or throw an exception if you prefer
+            return null;
         }
     }
 
@@ -103,7 +103,7 @@ public class PaymentBOImpl implements PaymentBO {
             paymentDto.setPaymentType(payment.getPaymentType());
             return paymentDto;
         } else {
-            return null; // or throw an exception if you prefer
+            return null;
         }
     }
 
@@ -118,11 +118,9 @@ public class PaymentBOImpl implements PaymentBO {
             payment.setTime(paymentDto.getTime());
             payment.setPaymentType(paymentDto.getPaymentType());
 
-            // Load related entities
             payment.setPatient(patientDAO.getPatientById(paymentDto.getPatientId()));
             payment.setProgram(programDAO.getProgram(paymentDto.getProgramId()));
 
-            // Save payment
             return paymentDAO.save(payment);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,11 +150,9 @@ public class PaymentBOImpl implements PaymentBO {
             payment.setTime(fromPayId.getTime());
             payment.setPaymentType(paymentDto.getPaymentType());
 
-            // Load related entities
             payment.setPatient(fromPayId.getPatient());
             payment.setProgram(fromPayId.getProgram());
 
-            // Update payment
             return paymentDAO.update(payment);
         } catch (SQLException e) {
             e.printStackTrace();

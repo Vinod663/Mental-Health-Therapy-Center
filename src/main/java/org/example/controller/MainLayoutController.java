@@ -43,11 +43,6 @@ public class MainLayoutController implements Initializable {
     @FXML
     private Button programsBtn;
 
-    @FXML
-    private Button reportBtn;
-
-    @FXML
-    private Button settingsBtn;
 
     @FXML
     private Button therapistBtn;
@@ -97,15 +92,6 @@ public class MainLayoutController implements Initializable {
         navigateTo("/view/TherapyProgram.fxml");
     }
 
-    @FXML
-    void reoprtBtnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void settingsBtnAction(ActionEvent event) {
-
-    }
 
     @FXML
     public void therapyDetailsBtnAction(ActionEvent actionEvent) {

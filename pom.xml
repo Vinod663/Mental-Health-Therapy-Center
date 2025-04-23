@@ -16,6 +16,13 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
         <dependency>
             <groupId>at.favre.lib</groupId>

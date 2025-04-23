@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.BOTypes;
 import org.example.bo.custom.UserBO;
+import org.example.bo.exception.RegisterException;
 import org.example.dto.UserDto;
 import org.example.entity.Users;
 import org.example.view.tdm.UserTM;
@@ -136,9 +137,11 @@ public class AddReceptionistController implements Initializable {
                 showAlert("Success", "User saved successfully!");
                 refreshPage();
             } else {
-                showAlert("Error", "User not saved. Try again.");
+                throw new RegisterException("User not saved. Try again.");
+                /*showAlert("Error", "User not saved. Try again.");*/
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             showAlert("Exception", "Something went wrong: " + e.getMessage());
         }
