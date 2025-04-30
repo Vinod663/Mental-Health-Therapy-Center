@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="editProfileAnchor" prefHeight="466.0" prefWidth="632.0" style="-fx-background-color: #9FB1C9;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.EditUserProfileController" >
+<AnchorPane fx:id="editProfileAnchor" prefHeight="466.0" prefWidth="632.0" style="-fx-background-color: #9FB1C9;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.serenity.controller.EditUserProfileController" >
 
     <VBox spacing="15" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="30.0">
         <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e467b;" text="Edit User Profile" AnchorPane.topAnchor="30.0" />

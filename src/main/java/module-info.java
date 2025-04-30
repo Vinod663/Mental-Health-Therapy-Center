@@ -12,13 +12,13 @@ module Mental.Health.Therapy.Center {
     requires bcrypt;
     requires java.desktop;
 
-    opens org.example.entity to org.hibernate.orm.core;
-    opens org.example.view.tdm to javafx.base;
-    opens org.example.config to jakarta.persistence;
+    opens com.serenity.entity to org.hibernate.orm.core;
+    opens com.serenity.view.tdm to javafx.base;
+    opens com.serenity.config to jakarta.persistence;
 
-    opens org.example.controller to javafx.fxml;
+    opens com.serenity.controller to javafx.fxml;
 
 
-    exports org.example;
-    exports org.example.view.tdm;
+    exports com.serenity;
+    exports com.serenity.view.tdm;
 }

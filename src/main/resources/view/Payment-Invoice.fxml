@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #9FB1C9;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.PaymentInvoiceController">
+<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #9FB1C9;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.serenity.controller.PaymentInvoiceController">
     <children>
       <AnchorPane fx:id="PrintingAnchor" prefHeight="344.0" prefWidth="550.0">
          <children>

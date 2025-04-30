@@ -9,7 +9,7 @@
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="466.0" prefWidth="632.0"
             style="-fx-background-color: #9FB1C9;"
-            fx:controller="org.example.controller.ContactAdminController">
+            fx:controller="com.serenity.controller.ContactAdminController">
 
     <VBox alignment="CENTER" spacing="20"
           AnchorPane.leftAnchor="50.0"

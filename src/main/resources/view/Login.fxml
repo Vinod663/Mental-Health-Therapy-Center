@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancLogin" prefHeight="500.0" prefWidth="800.0" style="bac: ;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.LoginController">
+<AnchorPane fx:id="ancLogin" prefHeight="500.0" prefWidth="800.0" style="bac: ;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.serenity.controller.LoginController">
     <children>
         <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #9FB1C9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
