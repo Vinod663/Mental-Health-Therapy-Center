@@ -83,7 +83,10 @@ public class FinancialReportController {
 
     @FXML
     void btnGenerateReportOnAction(ActionEvent event) {
-
+    //checking
+    //checking
+    //checking
+    //checking
     }
 
     @FXML
